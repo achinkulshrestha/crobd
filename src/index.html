@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Bootstrap 3, from LayoutIt!</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <!-- Load the Paper.js library -->
+    <script type="text/javascript" src="js/paper-full.js"></script>
+
+    <!-- Define inlined PaperScript associate it with myCanvas -->
+    <script type="text/paperscript" src="js/crobd.js" canvas="myCanvas"></script>
+
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/joint.css" rel="stylesheet">
+
+  </head>
+  <body>
+
+    <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+		<h2 class="section-title"></h2>
+		</div>
+	</div>
+	<!-- <div class="row">
+		<div class="col-md-12">
+		</div>
+	</div> -->
+
+  <div class="row">
+    <div class="col-md-8">
+         <canvas id="canvas1" style="border:4px dashed #000000;"></canvas>
+    </div>
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-12">
+          <div>Response</div>
+          <div id="response" class="container-words">
+            <ul id="response_list" class="items-words"></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div >Wordbank</div>
+            <div id="wordbank" class="container-words">
+                <ul id="wordbank_list" class="items-words">
+                </ul>
+            </div>
+            <div>
+               <button  id="rotateBtn" class="btn">Rotate</button>
+             </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+	<div class="row">
+		<div class="col-md-4">
+			<h2> Actual Image </h2>
+			<img src="img/fire_door.jpg" style="border:4px dashed #000000;" class="img-responsive">
+		</div>
+		<div class="col-md-4">
+			<h2> Depth representation </h2>
+			<img src="img/depth_2.jpg" style="border:4px dashed #000000;" class="img-responsive">
+		</div>
+		<div class="col-md-4">
+			<h2> Controls </h2>
+			<img src="img/keys.jpg" style="border:4px dashed #000000;" class="img-responsive">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h2 class="section-title">Step 2</h2>
+		</div>
+
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<img src="img/flow-2.jpg" style="border:4px dashed #000000;" class="img-responsive">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-8">
+			 <canvas id="myCanvas" width="640" height="480" style="border:4px dashed #000000;"></canvas>
+		</div>
+		<div class="col-md-4">
+		<h2> Controls </h2>
+			<img src="img/keys-2.jpg" style="border:4px dashed #000000;" class="img-responsive">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+  <!--END here-->
+  <!--   <header class="header-two-bars">
+
+	<div class="header-first-bar">
+
+		<div class="header-limiter">
+
+			<h1><a href="#">Show us how you would interact with this object</a></h1>
+		</div>
+
+	</div> -->
+
+	<!-- <div class="header-second-bar">
+
+		<div class="header-limiter">
+			<h2><a href="#">Draw the trajectory</a></h2>
+
+			<nav>
+				<a href="#"><i class="fa fa-comments-o"></i> Questions</a>
+				<a href="#"><i class="fa fa-cogs"></i> Feedback</a>
+			</nav>
+		</div>
+
+	</div>
+
+</header>
+
+    <div class="container-fluid">
+
+	<div class="row">
+		<div class="col-md-6">
+      <canvas id="myCanvas" width="640" height="480" style="border:4px dashed #000000;"></canvas>
+		</div>
+		<div class="col-md-6">
+			<div class="row">
+				<div class="col-md-12">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td></td>
+                <td><a class="btn btn-primary btn-block" href="#"> <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span> Up</a></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a class="btn btn-primary btn-block" href="#"> <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Left</a></td>
+                <td><a class="btn btn-primary btn-block" href="#"> <span class="glyphicon glyphicon-forward" aria-hidden="true"></span> Forward</a><a class="btn btn-primary btn-block" href="#"> <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> Pull out</a></td>
+                <td><a class="btn btn-primary btn-block" href="#"> <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span> Right</a></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><a class="btn btn-primary btn-block" href="#"> <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> Down</a></td>
+                <td></td>
+              </tr>
+            </tbody>
+        </table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+          <div id="myholder"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+		</div>
+	</div -->
+</div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/lodash.min.js"></script>
+    <script src="js/backbone-min.js"></script>
+    <script src="js/joint.js"></script>
+    <script src="js/opt.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <script src="js/shapes.js"></script>
+    <script src="js/words.js"></script>
+  </body>
+</html>
