@@ -225,3 +225,14 @@
 		font-size: 2.75vmin;
 		font-family: arial;
 }
+
+.keepfixed-right {
+	position:fixed;
+	right:0
+}
+
+
+.keepfixed-left {
+	position:fixed;
+	left:0
+}

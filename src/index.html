@@ -11,178 +11,161 @@
     <meta name="author" content="LayoutIt!">
 
     <!-- Load the Paper.js library -->
-    <script type="text/javascript" src="js/paper-full.js"></script>
+    <!-- <script type="text/javascript" src="js/paper-full.js"></script> -->
 
     <!-- Define inlined PaperScript associate it with myCanvas -->
-    <script type="text/paperscript" src="js/crobd.js" canvas="myCanvas"></script>
+    <!-- <script type="text/paperscript" src="js/crobd.js" canvas="myCanvas"></script> -->
 
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/joint.css" rel="stylesheet">
-
+    <!-- <link rel="stylesheet" type="text/css" href="css/default.css" /> -->
+    <link rel="stylesheet" type="text/css" href="css/component.css" />
+    <link href="css/chardinjs.css" rel="stylesheet">
+    <!-- <script src="js/modernizr.custom.js"></script> -->
   </head>
   <body>
 
-    <div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12">
-		<h2 class="section-title"></h2>
-		</div>
-	</div>
-	<!-- <div class="row">
-		<div class="col-md-12">
-		</div>
-	</div> -->
+  <div class="container">
 
-  <div class="row">
-    <div class="col-md-8">
-         <canvas id="canvas1" style="border:4px dashed #000000;"></canvas>
+    <!--  Header Section-->
+     <div class="row header">
+       <div class="col-xs-12 text-center">
+         <h1>The Interact with the object experiment!</h1>
+       </div>
+     </div>
+
+
+   <!--  Content Area-->
+   <div class="row content">
+     <div id="myDiv" class="col-md-4 col-sm-6 keepfixed-left">
+       <canvas id="canvas1" data-intro="This is the image containing the object. Position the rectangle on the object contained in this image." data-position="right" style="border:4px dashed #000000;"></canvas>
+     </div>
+     <div class="col-md-6 col-sm-6 col-md-offset-4 col-sm-offset-6">
+      <div class="main clearfix">
+        <form id="nl-form" class="nl-form">
+          The number of objects in this image that I can interact with is
+          <select>
+            <option value="-1" selected>&lt;select number&gt;</option>
+             <option value="0">0</option>
+             <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+          <br />First object that I would interact with is
+           <input type="text" value="" placeholder="Object name" data-subline="For example: <em>Door Knob</em> or <em>Cookie jar</em>"/>
+          <div class="nl-overlay"></div>
+        </form>
+     </div>
+     <div>
+     </div>
+  <div class="col-md-12">
+    <div id="myWizard">
+
+   <h3>Steps to follow!</h3>
+
+   <hr>
+
+   <div class="progress">
+     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5" style="width: 20%;">
+       Step 1 of 5
+     </div>
+   </div>
+
+   <div class="navbar">
+      <div class="navbar-inner">
+            <ul class="nav nav-pills">
+               <li class="active"><a href="#step1" data-toggle="tab" data-step="1">Step 1</a></li>
+               <li><a href="#step2" data-toggle="tab" data-step="2">Step 2</a></li>
+               <li><a href="#step3" data-toggle="tab" data-step="3">Step 3</a></li>
+               <li><a href="#step4" data-toggle="tab" data-step="4">Step 4</a></li>
+               <li><a href="#step5" data-toggle="tab" data-step="5">Step 5</a></li>
+            </ul>
+      </div>
+   </div>
+   <div class="tab-content">
+      <div class="tab-pane fade in active" id="step1">
+
+        <div class="well">
+
+            <label>Select the Door Knob object</label>
+            <img src="img/door.gif" alt="HTML5 Icon" class="img-responsive">
+            <br>
+            <p>Click<a href="#" class="btn btn-large primary" id="chard_btn" data-toggle="chardinjs">here</a> for more instructions</p>
+        </div>
+
+         <a class="btn btn-default btn-lg next" href="#">Continue</a>
+      </div>
+      <div class="tab-pane fade" id="step2">
+         <div class="well">
+
+            <label>Security Question 2</label>
+            <select class="form-control  input-lg">
+              <option value="What was the name of your first pet?">What was the name of your first pet?</option>
+              <option selected="" value="Where did you first attend school?">Where did you first attend school?</option>
+              <option value="What is your mother's maiden name?">What is your mother's maiden name?</option>
+              <option value="What is your favorite car model?">What is your favorite car model?</option>
+            </select>
+            <br>
+            <label>Enter Response</label>
+            <input class="form-control  input-lg">
+
+         </div>
+         <a class="btn btn-default next" href="#">Continue</a>
+      </div>
+      <div class="tab-pane fade" id="step3">
+        <div class="well"> <h2>Step 3</h2> Add another step here..</div>
+         <a class="btn btn-default next" href="#">Continue</a>
+      </div>
+      <div class="tab-pane fade" id="step4">
+        <div class="well"> <h2>Step 4</h2> Add another almost done step here..</div>
+         <a class="btn btn-default next" href="#">Continue</a>
+      </div>
+      <div class="tab-pane fade" id="step5">
+        <div class="well"> <h2>Step 5</h2> You're Done!</div>
+         <a class="btn btn-success first" href="#">Start over</a>
+      </div>
+   </div>
+
+   <hr>
+
+   <a href="http://www.bootply.com/wj9gWh8ulj">Edit on Bootply</a>
+
+   <hr>
+
+</div>
+
+    <div>Place the rectangle over the object</div>
+    <div>Response</div>
+    <div id="response" class="container-words">
+      <ul id="response_list" class="items-words"></ul>
     </div>
-    <div class="col-md-4">
-      <div class="row">
-        <div class="col-md-12">
-          <div>Response</div>
-          <div id="response" class="container-words">
-            <ul id="response_list" class="items-words"></ul>
-          </div>
-        </div>
-      </div>
+  </div>
+  <div class="col-md-12">
+    <div >Wordbank</div>
 
-      <div class="row">
-        <div class="col-md-12">
-          <div >Wordbank</div>
-            <div id="wordbank" class="container-words">
-                <ul id="wordbank_list" class="items-words">
-                </ul>
-            </div>
-            <div>
-               <button  id="rotateBtn" class="btn">Rotate</button>
-             </div>
-        </div>
-      </div>
+      <div>
+         <button  id="rotateBtn" class="btn">Rotate</button>
+       </div>
+  </div>
+
+   </div>
+     <div class="col-md-2 col-sm-6 keepfixed-right">
+       <div id="wordbank" class="container-words">
+           <ul id="wordbank_list" class="items-words">
+           </ul>
+       </div>
+     </div>
+   </div>
+
+
+
+
     </div>
 
   </div>
-
-
-
-
-	<div class="row">
-		<div class="col-md-4">
-			<h2> Actual Image </h2>
-			<img src="img/fire_door.jpg" style="border:4px dashed #000000;" class="img-responsive">
-		</div>
-		<div class="col-md-4">
-			<h2> Depth representation </h2>
-			<img src="img/depth_2.jpg" style="border:4px dashed #000000;" class="img-responsive">
-		</div>
-		<div class="col-md-4">
-			<h2> Controls </h2>
-			<img src="img/keys.jpg" style="border:4px dashed #000000;" class="img-responsive">
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<h2 class="section-title">Step 2</h2>
-		</div>
-
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<img src="img/flow-2.jpg" style="border:4px dashed #000000;" class="img-responsive">
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-8">
-			 <canvas id="myCanvas" width="640" height="480" style="border:4px dashed #000000;"></canvas>
-		</div>
-		<div class="col-md-4">
-		<h2> Controls </h2>
-			<img src="img/keys-2.jpg" style="border:4px dashed #000000;" class="img-responsive">
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-		</div>
-	</div>
-</div>
-
-
-
-
-
-
-
-
-  <!--END here-->
-  <!--   <header class="header-two-bars">
-
-	<div class="header-first-bar">
-
-		<div class="header-limiter">
-
-			<h1><a href="#">Show us how you would interact with this object</a></h1>
-		</div>
-
-	</div> -->
-
-	<!-- <div class="header-second-bar">
-
-		<div class="header-limiter">
-			<h2><a href="#">Draw the trajectory</a></h2>
-
-			<nav>
-				<a href="#"><i class="fa fa-comments-o"></i> Questions</a>
-				<a href="#"><i class="fa fa-cogs"></i> Feedback</a>
-			</nav>
-		</div>
-
-	</div>
-
-</header>
-
-    <div class="container-fluid">
-
-	<div class="row">
-		<div class="col-md-6">
-      <canvas id="myCanvas" width="640" height="480" style="border:4px dashed #000000;"></canvas>
-		</div>
-		<div class="col-md-6">
-			<div class="row">
-				<div class="col-md-12">
-          <table class="table">
-            <tbody>
-              <tr>
-                <td></td>
-                <td><a class="btn btn-primary btn-block" href="#"> <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span> Up</a></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td><a class="btn btn-primary btn-block" href="#"> <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Left</a></td>
-                <td><a class="btn btn-primary btn-block" href="#"> <span class="glyphicon glyphicon-forward" aria-hidden="true"></span> Forward</a><a class="btn btn-primary btn-block" href="#"> <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> Pull out</a></td>
-                <td><a class="btn btn-primary btn-block" href="#"> <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span> Right</a></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td><a class="btn btn-primary btn-block" href="#"> <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> Down</a></td>
-                <td></td>
-              </tr>
-            </tbody>
-        </table>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-          <div id="myholder"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-		</div>
-	</div -->
 </div>
 
     <script src="js/jquery.min.js"></script>
@@ -194,5 +177,11 @@
     <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
     <script src="js/shapes.js"></script>
     <script src="js/words.js"></script>
+    <script src="js/nlform.js"></script>
+    <script src="js/chardinjs.min.js"></script>
+    <script src="js/crobd.js"></script>
+    <script>
+    var nlform = new NLForm( document.getElementById( 'nl-form' ) );
+    </script>
   </body>
 </html>

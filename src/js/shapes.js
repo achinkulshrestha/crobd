@@ -55,8 +55,11 @@ function CanvasState(canvas) {
   // **** First some setup! ****
   this.base_image = new Image();
   this.base_image.src = 'img/fire_door.jpg';
-  canvas.width = this.base_image.naturalWidth;
-  canvas.height = this.base_image.naturalHeight;
+  // canvas.width = this.base_image.naturalWidth;
+  // canvas.height = this.base_image.naturalHeight;
+  canvas.width = 320;
+  canvas.height = 480;
+
 
   this.canvas = canvas;
   this.width = canvas.width;
@@ -118,6 +121,26 @@ function CanvasState(canvas) {
   //fixes a problem where double clicking causes text to get selected on the canvas
   canvas.addEventListener('selectstart', function(e) { e.preventDefault(); return false; }, false);
   // Up, down, and move are for dragging
+  canvas.setAttribute("tabindex", 0);
+  canvas.addEventListener('keydown', function(e) {
+     if(e.keyCode == 46) {
+       var mx = myState.selection.x + (myState.selection.w)/2;
+       var my = myState.selection.y + (myState.selection.h)/2;
+       var shapes = myState.shapes;
+       var l = shapes.length;
+       for (var i = l-1; i >= 0; i--) {
+         if (shapes[i].contains(mx, my)) {
+           shapes.splice(i, 1);
+           break;
+        }
+      }
+      if (myState.selection) {
+        myState.selection = null;
+        myState.valid = false; // Need to clear the old selection border
+      }
+     }
+  }, true);
+
   canvas.addEventListener('mousedown', function(e) {
     var mouse = myState.getMouse(e);
 
@@ -331,7 +354,7 @@ CanvasState.prototype.draw = function() {
 
     var width = base_image.naturalWidth; // this will be 300
     var height = base_image.naturalHeight; // this will be 400
-    ctx.drawImage(base_image, 0, 0, width, height);
+    ctx.drawImage(base_image, 0, 0, width, height, 0, 0, this.width, this.height);
 
     // draw all shapes
     var l = shapes.length;
