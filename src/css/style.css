@@ -243,3 +243,12 @@
 .action-form-fieldset {
 	display: none;
 }
+
+#response_list {
+	min-height: 50px;
+}
+
+.centered
+{
+    text-align:center;
+}

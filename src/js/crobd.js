@@ -1,4 +1,9 @@
 $(document).ready(function(){
+$('#startUpModal').modal('show');
+
+$(document).on("click", "#noTourBtn", function(event){
+  $('#startUpModal').modal('toggle');
+});
 $('#chard_btn').on('click', function() { $('.container').chardinJs('start') });
 });
 $('.next').click(function(){
