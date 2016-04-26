@@ -8,17 +8,24 @@ function initialParse(){
 
             $("#response .items-words").sortable({
                 connectWith: "#wordbank_list",
-                over: function() {
+                over: function(event, ui) {
                     removeIntent = false;
+
                 },
-                out: function() {
+                out: function(event, ui) {
                     removeIntent = true;
+
                 },
                 beforeStop: function (event, ui) {
                     if(removeIntent){
                         ui.item.remove();
                     }
+                },
+                receive: function(event, ui) {
+                  showActionInfo(ui.item.context.id);
+                  console.log(ui.item.context.id);
                 }
+
             });
 
             $("#wordbank_list li").draggable({
@@ -42,5 +49,24 @@ function initialParse(){
 
 
     });
+}
+
+function showActionInfo(word_id)
+{
+  // If no cookie with our chosen name (e.g. no_thanks)...
+       if ($.cookie("no_thanks"+word_id) == null) {
+         $('#myModal').appendTo("body");
+         $('#myModal').find('#'+word_id).show();
+         $('#myModal').modal('show');
+       }
+       // On click of specified class (e.g. 'nothanks'), trigger cookie, which expires in 100 years
+        $(".nothanks").click(function() {
+          $.cookie('no_thanks'+word_id, 'true', { expires: 36500, path: '/' });
+        });
+        $(".done").click(function() {
+          $('fieldset').filter('#'+word_id+'-form-content').show();
+          $('fieldset').not('#'+word_id+'-form-content').hide();
+          $('#myModal').find('#'+word_id).hide();
+        });
 }
 initialParse();

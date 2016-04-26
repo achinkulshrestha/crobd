@@ -236,3 +236,10 @@
 	position:fixed;
 	left:0
 }
+.modal-actions {
+	display: none;
+}
+
+.action-form-fieldset {
+	display: none;
+}

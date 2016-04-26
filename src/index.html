@@ -23,9 +23,11 @@
     <!-- <link rel="stylesheet" type="text/css" href="css/default.css" /> -->
     <link rel="stylesheet" type="text/css" href="css/component.css" />
     <link href="css/chardinjs.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.2.0/dragula.min.css">
     <!-- <script src="js/modernizr.custom.js"></script> -->
   </head>
   <body>
+
 
   <div class="container">
 
@@ -86,34 +88,77 @@
       </div>
    </div>
    <div class="tab-content">
+
       <div class="tab-pane fade in active" id="step1">
 
         <div class="well">
 
-            <label>Select the Door Knob object</label>
+            <label>Select the Door Knob object (Example shown below)</label>
             <img src="img/door.gif" alt="HTML5 Icon" class="img-responsive">
             <br>
             <p>Click<a href="#" class="btn btn-large primary" id="chard_btn" data-toggle="chardinjs">here</a> for more instructions</p>
         </div>
-
          <a class="btn btn-default btn-lg next" href="#">Continue</a>
       </div>
       <div class="tab-pane fade" id="step2">
          <div class="well">
 
-            <label>Security Question 2</label>
-            <select class="form-control  input-lg">
-              <option value="What was the name of your first pet?">What was the name of your first pet?</option>
-              <option selected="" value="Where did you first attend school?">Where did you first attend school?</option>
-              <option value="What is your mother's maiden name?">What is your mother's maiden name?</option>
-              <option value="What is your favorite car model?">What is your favorite car model?</option>
-            </select>
+            <label>Select the sequence of operations you would perform on the door knob</label>
+            <div id="response" class="container-words">
+              <ul id="response_list" class="items-words"></ul>
+            </div>
             <br>
-            <label>Enter Response</label>
-            <input class="form-control  input-lg">
 
+               <form role="form" id="step-2-form" action="" method="post" class="action-form">
+                  <fieldset class="action-form-fieldset" id="word_2-form-content">
+                    <div class="form-top">
+                  		<div class="form-top-left">
+                  			<h3>Pull action parameters</h3>
+                      		<p></p>
+                  		</div>
+                    </div>
+                    <div class="form-bottom">
+                    	<div class="form-group">
+                    		<label class="sr-only" for="form-force">Force on a scale of 1-10</label>
+                        	<input type="text" name="form-force" placeholder="Force value..." class="form-force form-control" id="form-force">
+                      </div>
+                    </div>
+                  </fieldset>
+                  <fieldset class="action-form-fieldset" id="word_4-form-content">
+                    <div class="form-top">
+                      <div class="form-top-left">
+                        <h3>Grab action parameters</h3>
+                          <p></p>
+                      </div>
+                    </div>
+                    <div class="form-bottom">
+                  	<div class="checkbox">
+                  		  <label><input type="checkbox" value="">Select the grab axis in the rectangle</label>
+                    </div>
+                    <div>
+                      <p>Show hand gestures here</p>
+                    </div>
+                  </fieldset>
+                  <fieldset class="action-form-fieldset" id="word_5-form-content">
+                    <div class="form-top">
+                      <div class="form-top-left">
+                        <h3>Rotate action parameters</h3>
+                          <p></p>
+                      </div>
+                    </div>
+                    <div class="form-bottom">
+                      <div>
+                      <label class="sr-only" for="form-angle">Angle</label>
+                        <input type="text" name="form-angle" placeholder="Force value..." class="form-angle form-control" id="form-angle">
+                      </div>
+                    <div>
+                      <label class="radio-inline"><input type="radio" name="optradio">Left</label>
+                      <label class="radio-inline"><input type="radio" name="optradio">Right</label>
+                    </div>
+                  </fieldset>
+               </form>
          </div>
-         <a class="btn btn-default next" href="#">Continue</a>
+         <a class="btn btn-danger next" href="#">Continue only when the complete sequence has been selected</a>
       </div>
       <div class="tab-pane fade" id="step3">
         <div class="well"> <h2>Step 3</h2> Add another step here..</div>
@@ -130,14 +175,11 @@
    </div>
 
    <hr>
-
-   <a href="http://www.bootply.com/wj9gWh8ulj">Edit on Bootply</a>
-
    <hr>
 
 </div>
 
-    <div>Place the rectangle over the object</div>
+    <!-- <div>Place the rectangle over the object</div>
     <div>Response</div>
     <div id="response" class="container-words">
       <ul id="response_list" class="items-words"></ul>
@@ -149,7 +191,7 @@
       <div>
          <button  id="rotateBtn" class="btn">Rotate</button>
        </div>
-  </div>
+  </div> -->
 
    </div>
      <div class="col-md-2 col-sm-6 keepfixed-right">
@@ -168,6 +210,49 @@
   </div>
 </div>
 
+<div class="modal fade" id="myModal">
+     <div class="modal-dialog">
+       <div class="modal-content">
+         <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+           <h4 class="modal-title">Information about the action</h4>
+         </div>
+         <div class="modal-body">
+           <div class="modal-actions" id="word_4">
+             <H1>Grab Action</h1>
+               <p>The following details need to provided for this action to happen</p>
+               <ul class="list-group">
+                 <li class="list-group-item">Point of contact</li>
+                 <li class="list-group-item">Hand posture on approach</li>
+              </ul>
+           </div>
+           <div class="modal-actions" id="word_5">
+             <H1>Rotate action</h1>
+               <p>The following details need to provided for this action to happen</p>
+               <ul class="list-group">
+                 <li class="list-group-item">Angle of rotation</li>
+                 <li class="list-group-item">Direction- right/left</li>
+              </ul>
+           </div>
+           <div class="modal-actions" id="word_2">
+             <H1>Pull Action</h1>
+               <p>The following details need to provided for this action to happen</p>
+               <ul class="list-group">
+                 <li class="list-group-item">Force</li>
+              </ul>
+           </div>
+         </div>
+         <div class="modal-footer">
+           <!-- Make sure to include the 'nothanks' class on the buttons -->
+           <button class="btn btn-default nothanks" data-dismiss="modal" aria-hidden="true">Understood! Don't Show Me This Again</button>
+           <button class="btn btn-primary done" data-dismiss="modal" aria-hidden="true">I know</button>
+         </div>
+       </div><!-- /.modal-content -->
+     </div><!-- /.modal-dialog -->
+   </div><!-- /.modal -->
+
+
+
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/lodash.min.js"></script>
@@ -180,6 +265,9 @@
     <script src="js/nlform.js"></script>
     <script src="js/chardinjs.min.js"></script>
     <script src="js/crobd.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/3.6.8/dragula.min.js'></script>
+    <!-- Cookie JS for Modal -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
     <script>
     var nlform = new NLForm( document.getElementById( 'nl-form' ) );
     </script>
