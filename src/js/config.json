@@ -1,14 +1,10 @@
 {
     "words":[
-        {"word":"Push", "def":"reaching for an object with an empty hand (precursor to grasp).", "img":"transport_empty.png"},
-        {"word":"Pull", "def":"grasping an object with the active hand.", "img":"grasp.png"},
-        {"word":"Hold", "def":"moving an object (grasped) using a hand motion.", "img":"transport_loaded.png"},
-        {"word":"Grab", "def":"hold a grasp stationary.", "img":"src", "img":"hold.png"},
-        {"word":"Rotate", "def":"releasing control of an object (letting it go).", "img":"release_load.png"},
-        {"word":"Press", "def":"positioning and/or orienting an object for the next operation and relative to an approximation location.", "img":"preposition.png"},
-        {"word":"Move up", "def":"positioning and/or orienting an object in the defined location.", "img":"position.png"},
-        {"word":"Move down", "def":"manipulating a tool in the intended way during the course working.", "img":"use.png"},
-        {"word":"Move left", "def":"joining two or more parts together.", "img":"assemble.png"},
-        {"word":"Move right", "def":"separating multiple components that were joined.", "img":"disassemble.png"}
+        {"id": 3,"word":"Push", "def":"Pushing an object with the active hand.", "img":"push.png"},
+        {"id": 1,"word":"Pull", "def":"Pull the object(grasped) with force.", "img":"pull.png"},
+        {"id": 4,"word":"Release", "def":"releasing control of an object (letting it go).", "img":"release.png"},
+        {"id": 2,"word":"Rotate", "def":"Rotating the object (grasped).", "img":"rotate.png"},
+        {"id": 5,"word":"Press", "def":"Press the object at a point.", "img":"press.png"},
+        {"id": 0,"word":"Grasp", "def":"Grasp the object at the defined location.", "img":"grasp.png"}
     ]
 }

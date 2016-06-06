@@ -1,297 +1,237 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>The interactor</title>
-
-    <meta name="description" content="">
-    <meta name="author" content="!">
-
-    <!-- Load the Paper.js library -->
-    <!-- <script type="text/javascript" src="js/paper-full.js"></script> -->
-
-    <!-- Define inlined PaperScript associate it with myCanvas -->
-    <!-- <script type="text/paperscript" src="js/crobd.js" canvas="myCanvas"></script> -->
-
-
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/joint.css" rel="stylesheet">
-    <!-- <link rel="stylesheet" type="text/css" href="css/default.css" /> -->
-    <link rel="stylesheet" type="text/css" href="css/component.css" />
-    <link href="css/chardinjs.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.2.0/dragula.min.css">
-    <link rel="stylesheet" type="text/css" href="//oss.maxcdn.com/jquery.trip.js/3.1.5/trip.min.css"/>
-    <!-- <script src="js/modernizr.custom.js"></script> -->
-  </head>
-  <body>
-
-
-  <div class="container">
-
-    <!--  Header Section-->
-     <div class="row header">
-       <div class="col-xs-12 text-center">
-         <h1>The Interact with the object experiment!</h1>
-       </div>
-     </div>
-
-
-   <!--  Content Area-->
-   <div class="row content">
-     <div id="myDiv" class="col-md-4 col-sm-6 keepfixed-left">
-       <canvas id="canvas1" class="step1-trip" style="border:4px dashed #000000;"></canvas>
-     </div>
-     <div class="col-md-6 col-sm-6 col-md-offset-4 col-sm-offset-6 step2-trip gray-background">
-      <!-- <div class="main clearfix">
-        <form id="nl-form" class="nl-form">
-          The number of objects in this image that I can interact with is
-          <select>
-            <option value="-1" selected>&lt;select number&gt;</option>
-             <option value="0">0</option>
-             <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-          </select>
-          <br />First object that I would interact with is
-           <input type="text" value="" placeholder="Object name" data-subline="For example: <em>Door Knob</em> or <em>Cookie jar</em>"/>
-          <div class="nl-overlay"></div>
-        </form>
-     </div> -->
-     <div>
-     </div>
-  <div class="col-md-12">
-    <div id="myWizard">
-
-   <h3>Steps to follow!</h3>
-
-   <hr>
-
-   <div class="progress">
-     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="4" style="width: 20%;">
-       Step 1 of 4
-     </div>
-   </div>
-
-   <div class="navbar">
-      <div class="navbar-inner">
-            <ul class="nav nav-pills">
-               <li class="active"><a href="#step1" data-toggle="tab" data-step="1">Step 1</a></li>
-               <li><a href="#step2" data-toggle="tab" data-step="2">Step 2</a></li>
-               <li><a href="#step3" data-toggle="tab" data-step="3">Step 3</a></li>
-               <li><a href="#step4" data-toggle="tab" data-step="4">Step 4</a></li>
-            </ul>
-      </div>
-   </div>
-
-   <div class="tab-content">
-     <div class="tab-pane fade in active" id="step1">
-       <div class="well step4-trip"> <h2>Step 1</h2> </div>
-       <div>
-          <fieldset class="form-group">
-            <label for="objName">Enter the name of the object</label>
-            <input type="text" class="form-control" id="objName" placeholder="Enter the object">
-          </fieldset>
-       </div>
-        <a class="btn btn-default next" href="#">Continue</a>
-     </div>
-
-      <div class="tab-pane fade" id="step2">
-
-        <div class="well">
-            <label>Select the Door Knob object (Example shown below)</label>
-            <img src="img/door.gif" alt="HTML5 Icon" class="img-responsive">
-            <br>
-        </div>
-         <a class="btn btn-default btn-lg next" href="#">Continue</a>
-      </div>
-
-
-      <div class="tab-pane fade" id="step3">
-         <div class="well">
-
-            <label>Select the sequence of operations you would perform on the door knob</label>
-            <div id="response" class="container-words">
-              <ul id="response_list" class="items-words"></ul>
+<html lang="en" ng-app="myApp">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>The interactor</title>
+      <meta name="description" content="">
+      <meta name="author" content="!">
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <link href="css/style.css" rel="stylesheet">
+      <link href="css/joint.css" rel="stylesheet">
+      <!-- <link rel="stylesheet" type="text/css" href="css/default.css" /> -->
+      <link rel="stylesheet" type="text/css" href="css/component.css" />
+      <link href="css/chardinjs.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.2.0/dragula.min.css">
+      <link rel="stylesheet" type="text/css" href="//oss.maxcdn.com/jquery.trip.js/3.1.5/trip.min.css"/>
+      <link rel="stylesheet" type="text/css" href="css/rangeslider.css"/>
+      <link rel="stylesheet" type="text/css" href="css/imgareaselect-default.css" />
+      <!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
+      <!-- <script src="js/modernizr.custom.js"></script> -->
+   </head>
+   <body>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.4/angular.min.js"></script>
+      <div class="container">
+         <!--  Header Section-->
+         <div class="row header">
+            <div class="col-xs-12 text-center">
+               </br>
             </div>
-            <br>
-
-               <form role="form" id="step-2-form" action="" method="post" class="action-form">
-                  <fieldset class="action-form-fieldset" id="word_2-form-content">
-                    <div class="form-top">
-                  		<div class="form-top-left">
-                  			<h3>Pull action parameters</h3>
-                      		<p></p>
-                  		</div>
-                    </div>
-                    <div class="form-bottom">
-                    	<div class="form-group">
-                    		<label class="sr-only" for="form-force">Force on a scale of 1-10</label>
-                        	<input type="text" name="form-force" placeholder="Force value..." class="form-force form-control" id="form-force">
-                      </div>
-                    </div>
-                  </fieldset>
-                  <fieldset class="action-form-fieldset" id="word_4-form-content">
-                    <div class="form-top">
-                      <div class="form-top-left">
-                        <h3>Grab action parameters</h3>
-                          <p></p>
-                      </div>
-                    </div>
-                    <div class="form-bottom">
-                  	<div class="checkbox">
-                  		  <label><input type="checkbox" value="">Select the grab axis in the rectangle</label>
-                    </div>
-                    <div>
-                      <p>Show hand gestures here</p>
-                    </div>
-                  </fieldset>
-                  <fieldset class="action-form-fieldset" id="word_5-form-content">
-                    <div class="form-top">
-                      <div class="form-top-left">
-                        <h3>Rotate action parameters</h3>
-                          <p></p>
-                      </div>
-                    </div>
-                    <div class="form-bottom">
-                      <div>
-                      <label class="sr-only" for="form-angle">Angle</label>
-                        <input type="text" name="form-angle" placeholder="Force value..." class="form-angle form-control" id="form-angle">
-                      </div>
-                    <div>
-                      <label class="radio-inline"><input type="radio" name="optradio">Left</label>
-                      <label class="radio-inline"><input type="radio" name="optradio">Right</label>
-                    </div>
-                  </fieldset>
-               </form>
          </div>
-         <a class="btn btn-danger next centered" href="#">Continue ONLY when all actions are complete</a>
-      </div>
+         <!--  Content Area-->
+         <div class="row content">
+            <div id="myDiv" class="col-md-4 col-sm-6 keepfixed-left img-div">
+               <!-- <canvas id="canvas1" class="step1-trip" style="border:4px dashed #000000;"></canvas> -->
+               <img class="main-img step1-trip" id="outputImage">
+            </div>
+            <div class="col-md-6 col-sm-6 col-md-offset-4 col-sm-offset-6 step2-trip gray-background">
+               <div>
+               </div>
+               <div class="col-md-12">
+                  <h3>Steps to follow!</h3>
+                  <hr>
+                  <div class="progress">
+                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="4" style="width: 20%;">
+                        Step 1 of 4
+                     </div>
+                  </div>
+                  <div class="navbar">
+                     <div class="navbar-inner">
+                        <ul class="nav nav-pills">
+                           <li class="active"><a href="#step1" data-toggle="tab" data-step="1">Step 1</a></li>
+                           <li><a href="#step2" class="disabled_link" id="attr-step2" data-toggle="tab" data-step="2">Step 2</a></li>
+                           <li><a href="#step3" class="disabled_link" id="attr-step3" data-toggle="tab" data-step="3" >Step 3</a></li>
+                           <li><a href="#step4" class="disabled_link" id="attr-step4"  data-toggle="tab" data-step="4">Step 4</a></li>
+                        </ul>
+                     </div>
+                  </div>
+                  <form id="expForm">
+                     <div class="tab-content">
+                         <div class="tab-pane fade in active" id="step1">
+                           <div>
+                             <fieldset id="objFieldset" name="objFieldsetName">
+                              <div name="step1Fieldset" class="form-group">
 
-      <div class="tab-pane fade" id="step4">
-        <div class="well"> <h2>Step 4</h2> Great job..</div>
-         <a class="btn btn-default next" href="#">Submit</a>
-      </div>
-   </div>
+                                 <label for="objName">In the image on your left, enter the name of the object you would interact with. </label>
+                                 <input title="The name of the object you interacted with: " name="objName" type="text" class="form-control" id="objName" ng-model="objectName" placeholder="Enter the object name" >
+                              </div>
+                            </fieldset>
+                           </div>
+                           <button class="btn btn-default next" disabled="true" id="step1_continue">Continue</button>
+                        </div>
+                        <div class="tab-pane fade disabled" id="step2" >
+                           <div>
+                              <label>Mark the {{objectName}} object in the image</label>
+                              </br>
+                              <!-- <a href="#football_example" id="collapse_example" class="btn btn-primary" data-toggle="collapse">Click to see video tutorial</a> -->
+                           </div>
+                           <i> Video tutorial - with soccer ball as object</i>
+                           </br>
+                           <div id="football_example" class="centered">
+                              <video width="400" controls>
+                                 <source src="img/football.webm" type="video/webm">
+                                 Your browser does not support HTML5 video.
+                              </video>
+                           </div>
+                           </br>
+                           <i>Detailed Instructions</i>
+                           </br>
+                           <div>
+                              <dl class="dl-horizontal">
+                                 <dt>Select {{objectName}} object</dt>
+                                 <dd>In the image on the left, click, hold and drag mouse to form a rectangle around the {{objectName}}.</dd>
+                                 <dt>Resizing rectangle</dt>
+                                 <dd>Resize the rectangle to create the best fit alignment.</dd>
+                              </dl>
+                           </div>
+                           </br>
+                           <div>
+                              <a class="btn btn-default next" id="step2_continue" href="#">Continue</a>
+                           </div>
+                        </div>
+                        <div class="tab-pane fade" id="step3" disabled>
+                           <div class="well">
+                              <label>Selection preview</label>
+                              <div id="preview">
+                                 <p class="alert alert-danger"> Object not selected</p>
+                                 <canvas id="preview_img"></canvas>
+                              </div>
+                              <label>Select the sequence of operations you would perform on the {{objectName}}</label>
+                              <div id="response" class="container-words">
+                                 <ul id="response_list" class="items-words"></ul>
+                              </div>
+                              <br>
+                              <label id="parameter_label">Enter parameters for the actions before continuing</label>
+                              <div>
+                                 <ul class="nav nav-tabs" id="response_tabs_nav">
+                                 </ul>
+                              </div>
+                              <div class="tab-content" id="response_tabs"></div>
 
-   <hr>
-   <hr>
-
-</div>
-
-    <!-- <div>Place the rectangle over the object</div>
-    <div>Response</div>
-    <div id="response" class="container-words">
-      <ul id="response_list" class="items-words"></ul>
-    </div>
-  </div>
-  <div class="col-md-12">
-    <div >Wordbank</div>
-
-      <div>
-         <button  id="rotateBtn" class="btn">Rotate</button>
-       </div>
-  </div> -->
-
-   </div>
-     <div class="col-md-2 col-sm-6 keepfixed-right step3-trip">
-       <div id="wordbank" class="container-words">
-           <ul id="wordbank_list" class="items-words">
-           </ul>
-       </div>
-     </div>
-   </div>
-
-
-
-
-    </div>
-
-  </div>
-</div>
-
-<div class="modal fade" id="myModal">
-     <div class="modal-dialog">
-       <div class="modal-content">
-         <div class="modal-header">
-           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-           <h4 class="modal-title">Information about the action</h4>
+                  </div>
+                  <div>
+                  <button class="btn btn-danger next centered" id="step3_continue">Continue ONLY when all actions are complete</button>
+                  </div>
+                  </div>
+                  </form>
+                  <div class="tab-pane fade" id="step4" disabled>
+                  <div class="well" id="summary"> <h2>Summary</h2>
+                  </div>
+                  <button id="finalSubmit" class="btn btn-default">Submit</button>
+                  </div>
+                  <br/>
+                  <br/>
+                  </div>
+               </div>
+               <div class="col-md-2 col-sm-6 keepfixed-right step3-trip">
+                  <div id="wordbank" class="container-words">
+                     <ul id="wordbank_list" class="items-words">
+                     </ul>
+                  </div>
+                  <div id="right">
+                     <dl id="definitions">
+                     </dl>
+                  </div>
+               </div>
+            </div>
          </div>
-         <div class="modal-body">
-           <div class="modal-actions" id="word_4">
-             <H1>Grab Action</h1>
-               <p>The following details need to provided for this action to happen</p>
-               <ul class="list-group">
-                 <li class="list-group-item">Point of contact</li>
-                 <li class="list-group-item">Hand posture on approach</li>
-              </ul>
-           </div>
-           <div class="modal-actions" id="word_5">
-             <H1>Rotate action</h1>
-               <p>The following details need to provided for this action to happen</p>
-               <ul class="list-group">
-                 <li class="list-group-item">Angle of rotation</li>
-                 <li class="list-group-item">Direction- right/left</li>
-              </ul>
-           </div>
-           <div class="modal-actions" id="word_2">
-             <H1>Pull Action</h1>
-               <p>The following details need to provided for this action to happen</p>
-               <ul class="list-group">
-                 <li class="list-group-item">Force</li>
-              </ul>
-           </div>
+      </div>
+      </div>
+      <div class="modal fade" id="myModal">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <!-- <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button> -->
+                  <h4 class="modal-title">Information about the action</h4>
+               </div>
+               <div class="modal-body">
+                  <div class="modal-actions" id="word_4">
+                     <H1>Grab Action</h1>
+                     <p>The following details need to provided for this action to happen</p>
+                     <ul class="list-group">
+                        <li class="list-group-item">Point of contact</li>
+                        <li class="list-group-item">Hand posture on approach</li>
+                     </ul>
+                  </div>
+                  <div class="modal-actions" id="word_5">
+                     <H1>Rotate action</h1>
+                     <p>The following details need to provided for this action to happen</p>
+                     <ul class="list-group">
+                        <li class="list-group-item">Angle of rotation</li>
+                        <li class="list-group-item">Direction- right/left</li>
+                     </ul>
+                  </div>
+                  <div class="modal-actions" id="word_2">
+                     <H1>Pull Action</h1>
+                     <p>The following details need to provided for this action to happen</p>
+                     <ul class="list-group">
+                        <li class="list-group-item">Force</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="modal-footer">
+                  <!-- Make sure to include the 'nothanks' class on the buttons -->
+                  <button class="btn btn-default nothanks" data-dismiss="modal" aria-hidden="true">Understood! Don't Show Me This Again</button>
+                  <button class="btn btn-primary done" data-dismiss="modal" aria-hidden="true">Got it!</button>
+               </div>
+            </div>
+            <!-- /.modal-content -->
          </div>
-         <div class="modal-footer">
-           <!-- Make sure to include the 'nothanks' class on the buttons -->
-           <button class="btn btn-default nothanks" data-dismiss="modal" aria-hidden="true">Understood! Don't Show Me This Again</button>
-           <button class="btn btn-primary done" data-dismiss="modal" aria-hidden="true">Got it!</button>
+         <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+      <div class="modal fade" data-backdrop="static" id="startUpModal">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h3>Interact with the object experiment</h3>
+               </div>
+               <div class="modal-body">
+                  <p class="text-justify">The task is to identify objects in a scene which you can interact with. Once you have identified the object, determine the sequence of
+                     actions which would be performed to interact with that object. The comic strip below depicts the notion of the task.
+                  </p>
+                  <img class="img-responsive" src="img/comic.png">
+               </div>
+               <div class="modal-footer">
+                  <a href="#" class="btn btn-primary start-tour" id="tourBtn">Get started!</a>
+                  <!-- <a href="#" class="btn" id="noTourBtn">No thanks! I already know this stuff</a> -->
+               </div>
+            </div>
          </div>
-       </div><!-- /.modal-content -->
-     </div><!-- /.modal-dialog -->
-   </div><!-- /.modal -->
-   <div class="modal fade" id="startUpModal">
-     <div class="modal-dialog">
-        <div class="modal-content">
-      <div class="modal-header">
-        <a class="close" data-dismiss="modal">×</a>
-        <h3>Interact with the object experiment</h3>
       </div>
-      <div class="modal-body">
-        <p>Write the intro here..</p>
-      </div>
-      <div class="modal-footer">
-        <a href="#" class="btn btn-primary start-tour" id="tourBtn">Take the tour</a>
-        <a href="#" class="btn" id="noTourBtn">No thanks! I already know this stuff</a>
-      </div>
-    </div>
-  </div>
-  </div>
-
-
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/lodash.min.js"></script>
-    <script src="js/backbone-min.js"></script>
-    <script src="js/joint.js"></script>
-    <script src="js/opt.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-    <script src="js/shapes.js"></script>
-    <script src="js/words.js"></script>
-    <script src="js/nlform.js"></script>
-    <script src="js/chardinjs.min.js"></script>
-    <script src="js/crobd.js"></script>
-    <script src="js/trip-steps.js"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/3.6.8/dragula.min.js'></script>
-    <!-- Cookie JS for Modal -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
-    <script>
-    var nlform = new NLForm( document.getElementById( 'nl-form' ) );
-    </script>
-    <script src="//oss.maxcdn.com/jquery.trip.js/3.1.5/trip.min.js"></script>
-  </body>
+      <script src="js/jquery.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="js/lodash.min.js"></script>
+      <script src="js/backbone-min.js"></script>
+      <script src="js/joint.js"></script>
+      <script src="js/opt.js"></script>
+      <script type="text/javascript" src="https://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+      <script src="js/shapes.js"></script>
+      <script src="js/words.js"></script>
+      <script src="js/nlform.js"></script>
+      <script src="js/chardinjs.min.js"></script>
+      <script src="js/crobd.js"></script>
+      <script src="js/trip-steps.js"></script>
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/3.6.8/dragula.min.js'></script>
+      <!-- Cookie JS for Modal -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
+      <script src="//oss.maxcdn.com/jquery.trip.js/3.1.5/trip.min.js"></script>
+      <script src="js/validator.min.js"></script>
+      <script src="js/rangeslider.min.js"></script>
+      <script src="js/image-picker.min.js"></script>
+      <script type="text/javascript" src="js/jquery.imgareaselect.pack.js"></script>
+      <script src="js/bootbox.min.js"></script>
+      <script src="js/actionModel.js"></script>
+   </body>
 </html>

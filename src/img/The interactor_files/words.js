@@ -45,7 +45,6 @@ function initialParse(){
                 },
                 receive: function(event, ui) {
                   var result = $(this).sortable('toArray', {attribute: 'name'});
-                  $("#parameter_label").show();
                   // Verify Model
 
                   //showActionInfo(ui.item.context.id);
@@ -55,9 +54,9 @@ function initialParse(){
                   var result = $(this).sortable('toArray', {attribute: 'name'});
                   verifyModel(result, function() {
 
-                    var id = arr_idx.toString();
+                    var id = arr[arr_idx].toString();
                     ui.item.context.id = id;
-                    createTab(id, ui.item.context.innerText, result);
+                    createTab(id, ui.item.context.innerText);
                     count_actions += 1
                     arr_idx += 1;
                     step_num += 1;
@@ -72,9 +71,7 @@ function initialParse(){
                     // }
                    //change(arr);
 
-                 }, function() {
-                   ui.item.remove();
-                 });
+                  });
                   // Verify Model
 
                 }
@@ -110,65 +107,39 @@ function removeTab(id) {
   $('#response_tabs_nav a:first').tab('show');
 }
 
-function verifyModel(sequence, retFunc, retFunc2) {
+function verifyModel(sequence, retFunc) {
   var model = new actionModel(sequence);
-  model.valid(callback, retFunc, retFunc2);
+  model.valid(callback, retFunc);
 }
 
-function callback(result, retFunc, retFunc2){
+function callback(result, retFunc){
   if (!result.isValid) {
-    retFunc2();
     bootbox.alert(result.error);
-
   }
   else {
     retFunc();
   }
 }
 
-function createTab(id, name, result){
+function createTab(id, name){
   var myvar;
   switch(name) {
-    case "Release":
-    myvar = '<fieldset id="fieldid-'+id+'" name="fieldName-'+result[result.length-1]+'">'+
-    '<div><label>Select type of release action</label>'+
-    '<div class="form-horizontal">'+
-    '  <div class="form-group">'+
-    ''+
-    '<label for="rangeSlider'+id+'" class="col-sm-1">Very slowly</label>'+
-    '<div class="col-sm-10">'+
-    '<input title="Intensity of the release actions: " name="releaseRange" id="rangeSlider'+id+'" type="range" min="1" max="10" step="1" value="5"/>'+
-    '</div>'+
-    '<label class="col-sm-1">Very fast</label>'+
-    '</div>'+
-    '</div></div></fieldset>';
-      break;
 
     case "Push":
-    myvar = '<fieldset id="fieldid-'+id+'" name="fieldName-'+result[result.length-1]+'"><div><label>Select the amount of force in the Push action</label>'+
-    '<div class="form-horizontal">'+
-    '  <div class="form-group">'+
-    ''+
-    '<label for="rangeSlider'+id+'" class="col-sm-1">Too less</label>'+
-    '<div class="col-sm-10">'+
-    '<input title="Intensity of the push action: " name="pushRange" id="rangeSlider'+id+'" type="range" min="1" max="10" step="1" value="5"/>'+
-    '</div>'+
-    '<label class="col-sm-1">Too much</label>'+
-    '</div>'+
-    '</div></div></fieldset>';
+
       break;
     case "Grasp":
-      myvar = '<fieldset id="fieldid-'+id+'" name="fieldName-'+result[result.length-1]+'"><div>'+
+      myvar = '<div>'+
               '<label>Which hand?</label>'+
               '<div class="radio">'+
               '    <label>'+
-              '      <input type="radio" class="rg lefthandradio" title="Hand used for Grasp" name="leftRadio'+id+'" id="leftGrabRadio" value="Left-Hand">'+
+              '      <input type="radio" name="optionsRadios'+id+'" id="leftGrabRadio" value="option1" checked>'+
               '      Left hand'+
               '    </label>'+
               '  </div>'+
               '  <div class="radio">'+
               '    <label>'+
-              '      <input type="radio" class="rg righthandradio" title="Hand used for Grasp" name="leftRadio'+id+'" id="rightGrabRadio" value="Right-Hand" checked>'+
+              '      <input type="radio" name="optionsRadios'+id+'" id="rightGrabRadio" value="option2">'+
               '       Right hand'+
               '      </label>'+
               '  </div>'+
@@ -178,110 +149,68 @@ function createTab(id, name, result){
               '<p>Please select the posture of hand while performing this action!</p>'+
               '<div class="container img-responsive">'+
               '    <div class="row">'+
-              '        <div class="col-xs-4">'+
-              '             <a href="#" class = "falseLink">'+
-              '             <img class="lefthand" src="img/01-hand.png" alt="..." />'+
-              '            <img class="righthand" src="img/04-hand.png" alt="..." />'+
+              '        <div class="col-xs-3">'+
+              '             <a href="#" class="thumbnail">'+
+              '            <img src="http://placehold.it/300x150" alt="..." />'+
               '            </a>'+
               '        </div>'+
-              '          <div class="col-xs-4">'+
-              '             <a href="#" class = "falseLink">'+
-              '            <img class="lefthand" src="img/02-hand.png" alt="..." />'+
-                  '         <img class="righthand" src="img/05-hand.png" alt="..." />'+
+              '          <div class="col-xs-3">'+
+              '             <a href="#" class="thumbnail">'+
+              '            <img src="http://placehold.it/300x150" alt="..." />'+
               '            </a>'+
               '        </div>'+
-              '         <div class="col-xs-4">'+
-              '             <a href="#" class = "falseLink">'+
-              '            <img class="lefthand" src="img/03-hand.png" alt="..." />'+
-              '            <img class="righthand" src="img/06-hand.png" alt="..." />'+
+              '         <div class="col-xs-3">'+
+              '             <a href="#" class="thumbnail">'+
+              '            <img src="http://placehold.it/300x150" alt="..." />'+
+              '            </a>'+
+              '        </div>'+
+              '         <div class="col-xs-3">'+
+              '             <a href="#" class="thumbnail">'+
+              '            <img src="http://placehold.it/300x150" alt="..." />'+
               '            </a>'+
               '        </div>'+
               '    </div>'+
               '</div>'+
               '</div>'+
               '<label>Select the center of the grab action in the object image</label>'+
-              '<p id="pointSelected" class="bg-warning">Point not selected yet!</p></fieldset>';
-
+              '<p id="pointSelected" class="bg-warning">Point not selected yet!</p>';
       break;
     case "Pull":
       // Slider force
-      myvar = '<fieldset id="fieldid-'+id+'" name="fieldName-'+result[result.length-1]+'"><div><label>Select the amount of force in the Pull action</label>'+
+      myvar = '<div><label>Select the amount of force in the Pull action</label>'+
       '<div class="form-horizontal">'+
       '  <div class="form-group">'+
       ''+
       '<label for="rangeSlider" class="col-sm-1">Too less</label>'+
       '<div class="col-sm-10">'+
-      '<input id="rangeSlider'+id+'" title="The intensity of the Pull action" name="pullSlider" type="range" min="1" max="10" step="1" value="5"/>'+
+      '<input id="rangeSlider" type="range" min="1" max="10" step="1" value="5"/>'+
       '</div>'+
       '<label class="col-sm-1">Too much</label>'+
       '</div>'+
-      '</div></div></fieldset>';
+      '</div></div>';
       break;
-    case "Press":
-    myvar = '<fieldset id="fieldid-'+id+'" name="fieldName-'+result[result.length-1]+'"><div>'+
-            '<label>Which hand?</label>'+
-            '<div class="radio">'+
-            '    <label>'+
-            '      <input type="radio" class="rg lefthandradio" title="Hand used for press action" name="pressRadio'+id+'" id="leftPressRadio" value="Left-Hand">'+
-            '      Left hand'+
-            '    </label>'+
-            '  </div>'+
-            '  <div class="radio">'+
-            '    <label>'+
-            '      <input type="radio" class="rg righthandradio" title="Hand used for press action" name="pressRadio'+id+'" id="rightPressRadio" value="Right-Hand" checked>'+
-            '       Right hand'+
-            '      </label>'+
-            '  </div>'+
-            '</div>'+
-            '<div>'+
-            '<label>Hand Posture</label>'+
-            '<p>Please select the posture of hand while performing this action!</p>'+
-            '<div class="container img-responsive">'+
-            '    <div class="row">'+
-            '        <div class="col-xs-4">'+
-            '             <a href="#" class = "falseLink">'+
-            '             <img class="lefthand" src="img/01-hand.png" alt="..." />'+
-            '            <img class="righthand" src="img/04-hand.png" alt="..." />'+
-            '            </a>'+
-            '        </div>'+
-            '          <div class="col-xs-4">'+
-            '             <a href="#" class = "falseLink">'+
-            '            <img class="lefthand" src="img/02-hand.png" alt="..." />'+
-                '         <img class="righthand" src="img/05-hand.png" alt="..." />'+
-            '            </a>'+
-            '        </div>'+
-            '         <div class="col-xs-4">'+
-            '             <a href="#" class = "falseLink">'+
-            '            <img class="lefthand" src="img/03-hand.png" alt="..." />'+
-            '            <img class="righthand" src="img/06-hand.png" alt="..." />'+
-            '            </a>'+
-            '        </div>'+
-            '    </div>'+
-            '</div>'+
-            '</div>'+
-            '<label>Select the center of the press action in the object image</label>'+
-            '<p id="pointSelected" class="bg-warning">Point not selected yet!</p>'+
-            '<input type="hidden" name="xGraspSelection"/>'+
-            '<input type="hidden" name="yGraspSelection"/></fieldset>';
+    case "Move":
+
       break;
+
     case "Rotate":
-      myvar = '<fieldset id="fieldid-'+id+'" name="fieldName-'+result[result.length-1]+'"><label>Direction of Rotation</label>'+
+      myvar = '<label>Direction of Rotation</label>'+
       '<div class="radio">'+
       '    <label>'+
-      '      <input type="radio" title="Direction of rotation" name="rotateRadio'+id+'" id="optionsRadios1" value="Clockwise" checked>'+
+      '      <input type="radio" name="optionsRadios'+id+'" id="optionsRadios1" value="option1" checked>'+
       '      Clockwise'+
       '    </label>'+
       '  </div>'+
       '  <div class="radio">'+
       '    <label>'+
-      '      <input type="radio" title="Direction of rotation" name="rotateRadio'+id+'" id="optionsRadios2" value="Anticlockwise">'+
+      '      <input type="radio" name="optionsRadios'+id+'" id="optionsRadios2" value="option2">'+
       '      Anti-clockwise'+
       '    </label>'+
       '  </div>'+
       '      <label for="rotationangle">Angle of rotation</label>'+
-      '      <input type="text" title="Angle of rotation" name="rotationAngle" class="form-control" id="rotationangle" placeholder="Enter angle in degrees">'+
+      '      <input type="text" class="form-control" id="rotationangle" placeholder="Enter angle in degrees">'+
       '      <small class="text-muted">Take positive x axis as reference</small>'+
-      '    </div></fieldset>';
+      '    </div>';
       break;
 
     //  $("#response_tabs_nav").append($('&lt;/pre&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;
@@ -303,33 +232,8 @@ function createTab(id, name, result){
 
     document.getElementById("tab-"+id).innerHTML = myvar;
     $('a[href="#tab-'+id+'"]').tab('show');
-    addhandlers();
 }
-function addhandlers(){
-  $('.falseLink').click(function(ev){
-    // do whatever you want here
-    ev.preventDefault();
-    ev.stopPropagation();
-  });
-  $(".radio").change(function(){
-  if ($('.lefthandradio').is(':checked')) {
-    $('.lefthand').show();
-    $('.righthand').hide();
-  }
-  else {
-    $('.lefthand').hide();
-    $('.righthand').show();
-  }
-  });
-  $(".lefthand").click(function() {
-    $('.lefthand').removeClass('selected');
-    $(this).addClass("selected");
-  });
-  $(".righthand").click(function() {
-    $('.righthand').removeClass('selected');
-    $(this).addClass("selected");
-  });
-}
+
 function change(result) {
     var $scope = angular.element($('#controlN')).scope();
     $scope.$apply(function() {

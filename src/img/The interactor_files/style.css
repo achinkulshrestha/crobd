@@ -377,26 +377,3 @@ div.frame {
 		 font-weight: normal;
 		 padding-left: 4%;
  }
-#preview_img{
-	display: none;
-}
-#preview > p {
-	display:block;
-}
-#parameter_label {
-	display:none;
-}
-
-.lefthand {
-	display:none;
-	max-width: 150px;
-	max-height: 100px;
-}
-.righthand {
-	max-width: 150px;
-	max-height: 100px;
-}
-img.selected{
-	border:dashed 4px red;
-
-}
