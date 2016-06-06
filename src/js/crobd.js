@@ -12,7 +12,26 @@ $(document).on('keyup', "#objName", function(){
     $('#step1_continue').prop('disabled', !allFilled);
 });
 $('#finalSubmit').click(function(){
-
+  bootbox.dialog({
+    message: "Are you sure you want to submit?",
+    title: "Final call!",
+    buttons: {
+      success: {
+        label: "Yes!",
+        className: "btn-success",
+        callback: function() {
+          location.replace("/success.html");
+        }
+      },
+      danger: {
+        label: "Need to make changes!",
+        className: "btn-danger",
+        callback: function() {
+          return;
+        }
+      }
+    }
+  });
 });
 });
 
@@ -236,12 +255,14 @@ function sleep(milliseconds) {
 $(document).ready(function() {
   var img = new Image();
   img.src = 'img/fire_door.jpg';
-  mainCanvas = document.createElement("canvas");
-  mainCanvas.width = 400;
-  mainCanvas.height = 400;
-  var ctx = mainCanvas.getContext("2d");
-  ctx.drawImage(img, 0, 0, mainCanvas.width, mainCanvas.height);
-  $('#outputImage').attr('src', mainCanvas.toDataURL("image/jpeg"));
+  img.onload = function(){
+    var mainCanvas = document.createElement("canvas");
+    mainCanvas.width = 400;
+    mainCanvas.height = 400;
+    var ctx = mainCanvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, mainCanvas.width, mainCanvas.height);
+    $('#outputImage').attr('src', mainCanvas.toDataURL("image/jpeg"));
+  };
 });
 
 
