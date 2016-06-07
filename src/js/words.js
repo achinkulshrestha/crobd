@@ -180,20 +180,20 @@ function createTab(id, name, result){
               '    <div class="row">'+
               '        <div class="col-xs-4">'+
               '             <a href="#" class = "falseLink">'+
-              '             <img class="lefthand" src="img/01-hand.png" alt="..." />'+
-              '            <img class="righthand" src="img/04-hand.png" alt="..." />'+
+              '             <img class="lefthand" src="img/01-hand.jpg" alt="..." />'+
+              '            <img class="righthand" src="img/04-hand.jpg" alt="..." />'+
               '            </a>'+
               '        </div>'+
               '          <div class="col-xs-4">'+
               '             <a href="#" class = "falseLink">'+
-              '            <img class="lefthand" src="img/02-hand.png" alt="..." />'+
-                  '         <img class="righthand" src="img/05-hand.png" alt="..." />'+
+              '            <img class="lefthand" src="img/02-hand.jpg" alt="..." />'+
+                  '         <img class="righthand" src="img/05-hand.jpg" alt="..." />'+
               '            </a>'+
               '        </div>'+
               '         <div class="col-xs-4">'+
               '             <a href="#" class = "falseLink">'+
-              '            <img class="lefthand" src="img/03-hand.png" alt="..." />'+
-              '            <img class="righthand" src="img/06-hand.png" alt="..." />'+
+              '            <img class="lefthand" src="img/03-hand.jpg" alt="..." />'+
+              '            <img class="righthand" src="img/06-hand.jpg" alt="..." />'+
               '            </a>'+
               '        </div>'+
               '    </div>'+
@@ -240,20 +240,20 @@ function createTab(id, name, result){
             '    <div class="row">'+
             '        <div class="col-xs-4">'+
             '             <a href="#" class = "falseLink">'+
-            '             <img class="lefthand" src="img/01-hand.png" alt="..." />'+
-            '            <img class="righthand" src="img/04-hand.png" alt="..." />'+
+            '             <img class="lefthand" src="img/01-hand.jpg" alt="..." />'+
+            '            <img class="righthand" src="img/04-hand.jpg" alt="..." />'+
             '            </a>'+
             '        </div>'+
             '          <div class="col-xs-4">'+
             '             <a href="#" class = "falseLink">'+
-            '            <img class="lefthand" src="img/02-hand.png" alt="..." />'+
-                '         <img class="righthand" src="img/05-hand.png" alt="..." />'+
+            '            <img class="lefthand" src="img/02-hand.jpg" alt="..." />'+
+                '         <img class="righthand" src="img/05-hand.jpg" alt="..." />'+
             '            </a>'+
             '        </div>'+
             '         <div class="col-xs-4">'+
             '             <a href="#" class = "falseLink">'+
-            '            <img class="lefthand" src="img/03-hand.png" alt="..." />'+
-            '            <img class="righthand" src="img/06-hand.png" alt="..." />'+
+            '            <img class="lefthand" src="img/03-hand.jpg" alt="..." />'+
+            '            <img class="righthand" src="img/06-hand.jpg" alt="..." />'+
             '            </a>'+
             '        </div>'+
             '    </div>'+
@@ -389,12 +389,12 @@ $scope.words = [];
               case "handpicker":
                   var selectEl = $('<select>').attr({'class':'image-picker'});
                   var option = selectEl.append(
-                    $("<option>").attr({ 'data-img-src': 'img/01-hand.png' },{'value': '1'}).text("Left-Hand Posture 1"),
-                    $("<option>").attr({ 'data-img-src': 'img/02-hand.png' },{'value': '2'}).text("Left-Hand Posture 2"),
-                    $("<option>").attr({ 'data-img-src': 'img/03-hand.png' },{'value': '3'}).text("Left-Hand Posture 3"),
-                    $("<option>").attr({ 'data-img-src': 'img/04-hand.png' },{'value': '4'}).text("Right-Hand Posture 1"),
-                    $("<option>").attr({ 'data-img-src': 'img/05-hand.png' },{'value': '5'}).text("Right-Hand Posture 2"),
-                    $("<option>").attr({ 'data-img-src': 'img/06-hand.png' },{'value': '6'}).text("Right-Hand Posture 3")
+                    $("<option>").attr({ 'data-img-src': 'img/01-hand.jpg' },{'value': '1'}).text("Left-Hand Posture 1"),
+                    $("<option>").attr({ 'data-img-src': 'img/02-hand.jpg' },{'value': '2'}).text("Left-Hand Posture 2"),
+                    $("<option>").attr({ 'data-img-src': 'img/03-hand.jpg' },{'value': '3'}).text("Left-Hand Posture 3"),
+                    $("<option>").attr({ 'data-img-src': 'img/04-hand.jpg' },{'value': '4'}).text("Right-Hand Posture 1"),
+                    $("<option>").attr({ 'data-img-src': 'img/05-hand.jpg' },{'value': '5'}).text("Right-Hand Posture 2"),
+                    $("<option>").attr({ 'data-img-src': 'img/06-hand.jpg' },{'value': '6'}).text("Right-Hand Posture 3")
                   );
                   newElement = $('<div></div>').append(option);
                   node.append(newElement);
