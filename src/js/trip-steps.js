@@ -71,8 +71,8 @@ showNavigation : true
 var tripStep3 = new Trip([
 { content : "Now, you have to define the sequence of actions to take in order to interact with the object you selected in the image", position : "screen-center", expose : true},
 { sel : $("#wordbank_list"), content : "This is the word bank, choose appropriate actions from here. Click, hold and drag the thumbnails to the response box", position : "w", expose : true},
-{ sel : $("#wordbank_list"), content : "Description for different actions for your reference", position : "w", expose : true},
-{ sel : $("#response_list"), content : "This is the response box, drag the words here.", position : "n", expose : true}
+{ sel : $("#definitions"), content : "Description for different actions for your reference", position : "w", expose : true},
+{ sel : $("#response_list"), content : "This is the response box, drag the action words here.", position : "n", expose : true}
 ], {
 delay : -1,
 animation: 'fadeIn',
