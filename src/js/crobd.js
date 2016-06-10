@@ -40,6 +40,8 @@ $('#finalSubmit').click(function(){
 
 $('.next').click(function(){
   var nextId = $(this).parents('.tab-pane').next().attr("id");
+  var title = $(this).parents('.tab-pane').next().attr("title");
+  $("#titleText").text(title);
   $('#attr-'+nextId).removeClass('disabled_link');
   $('[href=#'+nextId+']').tab('show');
   return false;

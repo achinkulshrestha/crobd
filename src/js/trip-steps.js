@@ -49,10 +49,18 @@ var tripStep2 = new Trip([
 { content : "Select the object in the image on the left. Watch the video tutorial to get to know steps!", theme: "black", position : "screen-center", expose : true},
 ], {
   onStart : function() {
-       $('#football_example').collapse('show');
+    if ($.cookie("no_thanks_trip2") != null) {
+      tripStep2.stop();
+    }
  },
  onEnd : function() {
-    $('#football_example').collapse('hide');
+  if ($.cookie("no_thanks_trip2") == null) {
+    var date = new Date();
+    var minutes = 120;
+    date.setTime(date.getTime() + (minutes * 60 * 1000));
+     $.cookie('no_thanks_trip2', 'true', { expires: date, path: '/' });
+  }
+  // $('#football_example').collapse('show');
  },
 delay : -1,
 animation: 'fadeIn',
@@ -80,8 +88,8 @@ $(".start-tour").on("click", function(event){
 
 
 $("#step1_continue").on("click", function(event){
-
-  //  tripStep2.start();
+// $("#titleText").text('Mark the object in the image');
+tripStep2.start();
 
 
 });

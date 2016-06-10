@@ -25,15 +25,15 @@
       <div class="container">
          <!--  Content Area-->
          <div class="row">
-            <div id="myDiv" class="col-md-4 col-sm-12">
+            <div id="myDiv" class="col-md-4 col-sm-4">
                <!-- <canvas id="canvas1" class="step1-trip" style="border:4px dashed #000000;"></canvas> -->
                <img class="main-img step1-trip" id="outputImage"></img>
             </div>
-            <div class="col-md-6 step2-trip gray-background">
+            <div class="col-md-6 col-sm-6 step2-trip gray-background">
                <div>
                </div>
                <div class="col-md-12">
-                  <h3>Steps to follow!</h3>
+                  <h3 id="titleText">Steps to follow!</h3>
                   <hr>
                   <div class="progress">
                      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="4" style="width: 20%;">
@@ -46,7 +46,7 @@
                            <li class="active"><a href="#step1" data-toggle="tab" data-step="1">Step 1</a></li>
                            <li><a href="#step2" class="disabled_link" id="attr-step2" data-toggle="tab" data-step="2">Step 2</a></li>
                            <li><a href="#step3" class="disabled_link" id="attr-step3" data-toggle="tab" data-step="3" >Step 3</a></li>
-                           <li><a href="#step4" class="disabled_link" id="attr-step4"  data-toggle="tab" data-step="4">Step 4</a></li>
+                           <li><a href="#step4" class="disabled_link" id="attr-step4" data-toggle="tab" data-step="4">Step 4</a></li>
                         </ul>
                      </div>
                   </div>
@@ -64,13 +64,12 @@
                            </div>
                            <button class="btn btn-primary next" disabled="true" id="step1_continue">Continue</button>
                         </div>
-                        <div class="tab-pane fade disabled" id="step2" >
+                        <div class="tab-pane fade disabled" id="step2" title="Mark the {{objectName}} object">
                            <div>
-                              <label>Mark the {{objectName}} object in the image</label>
                               </br>
                               <!-- <a href="#football_example" id="collapse_example" class="btn btn-primary" data-toggle="collapse">Click to see video tutorial</a> -->
                            </div>
-                           <i> Video tutorial - with soccer ball as object</i>
+                           <h4> Video tutorial - with soccer ball as object</h4>
                            </br>
                            <div id="football_example" class="centered">
                               <video width="400" controls>
@@ -79,7 +78,7 @@
                               </video>
                            </div>
                            </br>
-                           <i>Detailed Instructions</i>
+                           <h4>Detailed Instructions</h4>
                            </br>
                            <div>
                               <dl class="dl-horizontal">
@@ -94,7 +93,7 @@
                               <a class="btn btn-primary next" id="step2_continue" href="#">Continue</a>
                            </div>
                         </div>
-                        <div class="tab-pane fade" id="step3" disabled>
+                        <div class="tab-pane fade" id="step3" title="Define the sequence of actions"  disabled>
                            <div class="well">
                               <label>Selection preview</label>
                               <div id="preview">
@@ -119,7 +118,7 @@
                   </div>
                   </div>
                   </form>
-                  <div class="tab-pane fade" id="step4" disabled>
+                  <div class="tab-pane fade" id="step4" title="Summary" disabled>
                   <div class="well" id="summary"> <h2>Summary</h2>
                   </div>
                   <button id="finalSubmit" class="btn btn-default">Submit</button>
