@@ -53,28 +53,36 @@ function initialParse(){
                 },
                 update: function(event, ui) {
                   var result = $(this).sortable('toArray', {attribute: 'name'});
-                  verifyModel(result, function() {
+                  var id = arr_idx.toString();
+                  ui.item.context.id = id;
+                  createTab(id, ui.item.context.innerText, result);
+                  count_actions += 1
+                  arr_idx += 1;
+                  step_num += 1;
 
-                    var id = arr_idx.toString();
-                    ui.item.context.id = id;
-                    createTab(id, ui.item.context.innerText, result);
-                    count_actions += 1
-                    arr_idx += 1;
-                    step_num += 1;
-
-                    // var arr = [];
-                    // for(var i = 0; i < result.length; i++){
-                    //   for(var j = 0; j < json['words'].length; j++){
-                    //   if(json['words'][j]['id'] == parseInt(result[i])) {
-                    //       arr.push(json['words'][j]['format']);
-                    //   }
-                    //  }
-                    // }
-                   //change(arr);
-
-                 }, function() {
-                   ui.item.remove();
-                 });
+                  var result = $(this).sortable('toArray', {attribute: 'name'});
+                //   verifyModel(result, function() {
+                 //
+                //     var id = arr_idx.toString();
+                //     ui.item.context.id = id;
+                //     createTab(id, ui.item.context.innerText, result);
+                //     count_actions += 1
+                //     arr_idx += 1;
+                //     step_num += 1;
+                 //
+                //     // var arr = [];
+                //     // for(var i = 0; i < result.length; i++){
+                //     //   for(var j = 0; j < json['words'].length; j++){
+                //     //   if(json['words'][j]['id'] == parseInt(result[i])) {
+                //     //       arr.push(json['words'][j]['format']);
+                //     //   }
+                //     //  }
+                //     // }
+                //    //change(arr);
+                 //
+                //  }, function() {
+                //    ui.item.remove();
+                //  });
                   // Verify Model
 
                 }
@@ -178,19 +186,19 @@ function createTab(id, name, result){
               '<p>Please select the posture of hand while performing this action!</p>'+
               '<div class="container img-responsive">'+
               '    <div class="row">'+
-              '        <div class="col-xs-4">'+
+              '        <div class="col-lg-4">'+
               '             <a href="#" class = "falseLink">'+
               '             <img class="lefthand" src="img/01-hand.jpg" alt="..." />'+
               '            <img class="righthand" src="img/04-hand.jpg" alt="..." />'+
               '            </a>'+
               '        </div>'+
-              '          <div class="col-xs-4">'+
+              '          <div class="col-lg-4">'+
               '             <a href="#" class = "falseLink">'+
               '            <img class="lefthand" src="img/02-hand.jpg" alt="..." />'+
                   '         <img class="righthand" src="img/05-hand.jpg" alt="..." />'+
               '            </a>'+
               '        </div>'+
-              '         <div class="col-xs-4">'+
+              '         <div class="col-lg-4">'+
               '             <a href="#" class = "falseLink">'+
               '            <img class="lefthand" src="img/03-hand.jpg" alt="..." />'+
               '            <img class="righthand" src="img/06-hand.jpg" alt="..." />'+
@@ -238,19 +246,19 @@ function createTab(id, name, result){
             '<p>Please select the posture of hand while performing this action!</p>'+
             '<div class="container img-responsive">'+
             '    <div class="row">'+
-            '        <div class="col-xs-4">'+
+            '        <div class="col-lg-4">'+
             '             <a href="#" class = "falseLink">'+
             '             <img class="lefthand" src="img/01-hand.jpg" alt="..." />'+
             '            <img class="righthand" src="img/04-hand.jpg" alt="..." />'+
             '            </a>'+
             '        </div>'+
-            '          <div class="col-xs-4">'+
+            '          <div class="col-lg-4">'+
             '             <a href="#" class = "falseLink">'+
             '            <img class="lefthand" src="img/02-hand.jpg" alt="..." />'+
                 '         <img class="righthand" src="img/05-hand.jpg" alt="..." />'+
             '            </a>'+
             '        </div>'+
-            '         <div class="col-xs-4">'+
+            '         <div class="col-lg-4">'+
             '             <a href="#" class = "falseLink">'+
             '            <img class="lefthand" src="img/03-hand.jpg" alt="..." />'+
             '            <img class="righthand" src="img/06-hand.jpg" alt="..." />'+

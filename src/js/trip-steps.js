@@ -3,11 +3,46 @@ $(document).ready(function(){
   { sel : $(".step1-trip"), content : "This image contains one or more objects that you can interact with.", position : "e", expose : true},
   { sel : $(".step2-trip"), content : "There are 4 steps you need to follow to complete the experiment. This space would guide you through those steps.", position : "s", expose : true},
   { sel : $(".step3-trip"), content : "For every object in the image, you need to choose actions depending on how you would interact with the object. Each object would have different sequence of actions. This word bank gives you a list of actions to choose from", position : "s", expose : true},
-  { sel : $("#step1"), content : "That's pretty much it, let's begin from step 1", position : "w", expose : true},
+  { sel : $("#step1"), content : "That's pretty much it, let's begin from step 1", position : "s", expose : true},
 ], {
   delay : -1,
   animation: 'fadeIn',
-  showNavigation : true
+  showNavigation : true,
+  onStart : function() {
+    if ($.cookie("no_thanks_trip1") != null) {
+      trip.stop();
+    }
+  },
+   onEnd : function() {
+    if ($.cookie("no_thanks_trip1") == null) {
+     bootbox.dialog({
+       message: "Do you want to see the tutorial again later?",
+       title: "Tutorial!",
+       buttons: {
+         success: {
+           label: "Yes!",
+           className: "btn-success",
+           callback: function() {
+             return;
+           }
+         },
+         danger: {
+           label: "No, I understood everything!",
+           className: "btn-danger",
+           callback: function() {
+             var date = new Date();
+             var minutes = 120;
+             date.setTime(date.getTime() + (minutes * 60 * 1000));
+             $.cookie("no_thanks_trip1", null, { path: '/' });
+             $.cookie('no_thanks_trip1', 'true', { expires: date, path: '/' });
+             return;
+           }
+         }
+       }
+     });
+    }
+
+   }
 });
 
 var tripStep2 = new Trip([

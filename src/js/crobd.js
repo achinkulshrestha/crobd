@@ -77,6 +77,7 @@ $(document).ready(function(){
       if(e.keyCode==13)
       $('#step1_continue').click();
     });
+
 });
 
 $(document).ready(function () {
@@ -257,8 +258,8 @@ $(document).ready(function() {
   img.src = 'img/fire_door.jpg';
   img.onload = function(){
     var mainCanvas = document.createElement("canvas");
-    mainCanvas.width = 400;
-    mainCanvas.height = 400;
+    mainCanvas.width = 300;
+    mainCanvas.height = 300;
     var ctx = mainCanvas.getContext("2d");
     ctx.drawImage(img, 0, 0, mainCanvas.width, mainCanvas.height);
     $('#outputImage').attr('src', mainCanvas.toDataURL("image/jpeg"));
