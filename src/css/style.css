@@ -407,6 +407,15 @@ img.selected{
 	top: 50%;
 }
 
+dt {
+	padding-left: 0;
+}
+
+.lead {
+	margin-top: 20px;
+	margin-bottom: 5px;
+}
+
 /* --------------------------------------
    Media Queries
    -------------------------------------- */

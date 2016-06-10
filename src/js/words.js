@@ -139,21 +139,22 @@ function createTab(id, name, result){
   switch(name) {
     case "Release":
     myvar = '<fieldset id="fieldid-'+id+'" name="fieldName-'+result[result.length-1]+'">'+
-    '<div><label>Select type of release action</label>'+
+    '<div><p class="lead">Param 1. Select intensity of release action?</p>'+
     '<div class="form-horizontal">'+
     '  <div class="form-group">'+
     ''+
-    '<label for="rangeSlider'+id+'" class="col-sm-1">Very slowly</label>'+
-    '<div class="col-sm-10">'+
+    '<label for="rangeSlider'+id+'" class="col-sm-2">Slow release</label>'+
+    '<div class="col-sm-8">'+
     '<input title="Intensity of the release actions: " name="releaseRange" id="rangeSlider'+id+'" type="range" min="1" max="10" step="1" value="5"/>'+
     '</div>'+
-    '<label class="col-sm-1">Very fast</label>'+
+    '<label class="col-sm-2 ">Quick release</label>'+
     '</div>'+
     '</div></div></fieldset>';
       break;
 
     case "Push":
-    myvar = '<fieldset id="fieldid-'+id+'" name="fieldName-'+result[result.length-1]+'"><div><label>Select the amount of force in the Push action</label>'+
+    myvar = '<fieldset id="fieldid-'+id+'" name="fieldName-'+result[result.length-1]+'"><div>'+
+    '<p class="lead">Param 1. Select intensity of push action?</p>'+
     '<div class="form-horizontal">'+
     '  <div class="form-group">'+
     ''+
@@ -167,7 +168,7 @@ function createTab(id, name, result){
       break;
     case "Grasp":
       myvar = '<fieldset id="fieldid-'+id+'" name="fieldName-'+result[result.length-1]+'"><div>'+
-              '<label>Which hand?</label>'+
+              '<p class="lead">Param 1. Which hand?</p>'+
               '<div class="radio">'+
               '    <label>'+
               '      <input type="radio" class="rg lefthandradio" title="Hand used for Grasp" name="leftRadio'+id+'" id="leftGrabRadio" value="Left-Hand">'+
@@ -182,7 +183,7 @@ function createTab(id, name, result){
               '  </div>'+
               '</div>'+
               '<div>'+
-              '<label>Hand Posture</label>'+
+              '<p class="lead">Param 2. Which Hand Posture?</p>'+
               '<p>Please select the posture of hand while performing this action!</p>'+
               '<div class="container img-responsive">'+
               '    <div class="row">'+
@@ -207,13 +208,16 @@ function createTab(id, name, result){
               '    </div>'+
               '</div>'+
               '</div>'+
-              '<label>Select the center of the grab action in the object image</label>'+
+              '<p class="lead">Param 3. Select the center of the grab action in the preview image.</p>'+
+              '<button class="btn btn-default" data-toggle="collapse" data-target="#instruction">Detailed instructions</button>'+
+              '<div id="instruction" class="collapse">'+
+              'Click on the grasp point inside the preview image above, a red dot should appear. To re-select, move the selection on the image on the left.</div></br>'+
               '<p id="pointSelected" class="bg-warning">Point not selected yet!</p></fieldset>';
 
       break;
     case "Pull":
       // Slider force
-      myvar = '<fieldset id="fieldid-'+id+'" name="fieldName-'+result[result.length-1]+'"><div><label>Select the amount of force in the Pull action</label>'+
+      myvar = '<fieldset id="fieldid-'+id+'" name="fieldName-'+result[result.length-1]+'"><div><p class="lead">Param 1. Select intensity of pull action?</p>'+
       '<div class="form-horizontal">'+
       '  <div class="form-group">'+
       ''+
@@ -227,7 +231,7 @@ function createTab(id, name, result){
       break;
     case "Press":
     myvar = '<fieldset id="fieldid-'+id+'" name="fieldName-'+result[result.length-1]+'"><div>'+
-            '<label>Which hand?</label>'+
+                '<p class="lead">Param 1. Which Hand?</p>'+
             '<div class="radio">'+
             '    <label>'+
             '      <input type="radio" class="rg lefthandradio" title="Hand used for press action" name="pressRadio'+id+'" id="leftPressRadio" value="Left-Hand">'+
@@ -242,7 +246,7 @@ function createTab(id, name, result){
             '  </div>'+
             '</div>'+
             '<div>'+
-            '<label>Hand Posture</label>'+
+            '<p class="lead">Param 2. Select hand posture?</p>'+
             '<p>Please select the posture of hand while performing this action!</p>'+
             '<div class="container img-responsive">'+
             '    <div class="row">'+
@@ -267,13 +271,16 @@ function createTab(id, name, result){
             '    </div>'+
             '</div>'+
             '</div>'+
-            '<label>Select the center of the press action in the object image</label>'+
+            '<p class="lead">Param 3. Select the center of the press action in the preview image.</p>'+
+            '<button class="btn btn-default" data-toggle="collapse" data-target="#instructionpress">Detailed instructions</button>'+
+            '<div id="instructionpress" class="collapse">'+
+            'Click on the grasp point inside the preview image above, a red dot should appear. To re-select, move the selection on the image on the left.</div></br>'+
             '<p id="pointSelected" class="bg-warning">Point not selected yet!</p>'+
             '<input type="hidden" name="xGraspSelection"/>'+
             '<input type="hidden" name="yGraspSelection"/></fieldset>';
       break;
     case "Rotate":
-      myvar = '<fieldset id="fieldid-'+id+'" name="fieldName-'+result[result.length-1]+'"><label>Direction of Rotation</label>'+
+      myvar = '<fieldset id="fieldid-'+id+'" name="fieldName-'+result[result.length-1]+'"><p class="lead">Param 1. Direction of rotation.</p>'+
       '<div class="radio">'+
       '    <label>'+
       '      <input type="radio" title="Direction of rotation" name="rotateRadio'+id+'" id="optionsRadios1" value="Clockwise" checked>'+
@@ -286,7 +293,7 @@ function createTab(id, name, result){
       '      Anti-clockwise'+
       '    </label>'+
       '  </div>'+
-      '      <label for="rotationangle">Angle of rotation</label>'+
+      '      <p class="lead">Param 2. Angle of rotation</p>'+
       '      <input type="text" title="Angle of rotation" name="rotationAngle" class="form-control" id="rotationangle" placeholder="Enter angle in degrees">'+
       '      <small class="text-muted">Take positive x axis as reference</small>'+
       '    </div></fieldset>';

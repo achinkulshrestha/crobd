@@ -16,7 +16,7 @@ $(document).ready(function(){
    onEnd : function() {
     if ($.cookie("no_thanks_trip1") == null) {
      bootbox.dialog({
-       message: "Do you want to see the tutorial again later?",
+       message: "Do you want to see this tutorial next time?",
        title: "Tutorial!",
        buttons: {
          success: {
@@ -46,7 +46,7 @@ $(document).ready(function(){
 });
 
 var tripStep2 = new Trip([
-{ content : "Select the object in the image on the left. Watch the video tutorial to get to know steps!", theme: "black", position : "screen-center", expose : true},
+{ content : "Watch the video tutorial to get to know next steps!", theme: "black", position : "screen-center", expose : true},
 ], {
   onStart : function() {
     if ($.cookie("no_thanks_trip2") != null) {
@@ -71,6 +71,7 @@ showNavigation : true
 var tripStep3 = new Trip([
 { content : "Now, you have to define the sequence of actions to take in order to interact with the object you selected in the image", position : "screen-center", expose : true},
 { sel : $("#wordbank_list"), content : "This is the word bank, choose appropriate actions from here. Click, hold and drag the thumbnails to the response box", position : "w", expose : true},
+{ sel : $("#wordbank_list"), content : "Description for different actions for your reference", position : "w", expose : true},
 { sel : $("#response_list"), content : "This is the response box, drag the words here.", position : "n", expose : true}
 ], {
 delay : -1,

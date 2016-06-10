@@ -69,7 +69,7 @@
                               </br>
                               <!-- <a href="#football_example" id="collapse_example" class="btn btn-primary" data-toggle="collapse">Click to see video tutorial</a> -->
                            </div>
-                           <h4> Video tutorial - with soccer ball as object</h4>
+                           <h4>Watch video tutorial - with soccer ball as an example object</h4>
                            </br>
                            <div id="football_example" class="centered">
                               <video width="400" controls>
@@ -78,29 +78,27 @@
                               </video>
                            </div>
                            </br>
-                           <h4>Detailed Instructions</h4>
-                           </br>
+                           <h4>Now create a rectangle around {{objectName}}</h4>
                            <div>
-                              <dl class="dl-horizontal">
+                              <dl>
                                  <dt>Select {{objectName}} object</dt>
-                                 <dd>In the image on the left, click, hold and drag mouse to form a rectangle around the {{objectName}}.</dd>
+                                 <dd>In the image on the left, click, hold and drag mouse to form a rectangle around the {{objectName}} as shown in the video above.</dd>
                                  <dt>Resizing rectangle</dt>
-                                 <dd>Resize the rectangle to create the best fit alignment.</dd>
+                                 <dd>Resize the rectangle to create the best fit alignment. Click continue once you are done.</dd>
                               </dl>
                            </div>
-                           </br>
                            <div>
                               <a class="btn btn-primary next" id="step2_continue" href="#">Continue</a>
                            </div>
                         </div>
-                        <div class="tab-pane fade" id="step3" title="Define the sequence of actions"  disabled>
+                        <div class="tab-pane fade" id="step3" title="Define the sequence of actions while interacting with {{objectName}}"  disabled>
                            <div class="well">
-                              <label>Selection preview</label>
+                              <label>Selection preview of {{objectName}}</label>
                               <div id="preview">
                                  <p class="alert alert-danger"> Object not selected</p>
                                  <canvas id="preview_img"></canvas>
                               </div>
-                              <label>Select the sequence of operations you would perform on the {{objectName}}</label>
+                              <label>Using the word bank, select the sequence of actions you would perform on the {{objectName}}</label>
                               <div id="response" class="container-words">
                                  <ul id="response_list" class="items-words"></ul>
                               </div>
