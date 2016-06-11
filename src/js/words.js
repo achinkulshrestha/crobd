@@ -44,6 +44,8 @@ function initialParse(){
                     }
                 },
                 receive: function(event, ui) {
+                  // Get saved data from sessionStorage
+
                   var result = $(this).sortable('toArray', {attribute: 'name'});
                   $("#parameter_label").show();
                   // Verify Model
@@ -61,6 +63,22 @@ function initialParse(){
                   step_num += 1;
 
                   var result = $(this).sortable('toArray', {attribute: 'name'});
+                  var data = sessionStorage.getItem('step3trip');
+                  if (data == null) {
+                    // Save data to sessionStorage
+                    sessionStorage.setItem('step3trip', '1');
+                    $("#exampleText").empty();
+                    var tripNew = new Trip([
+                    { sel : $("#response_tabs"), content : "Enter the parameters for this action before dragging further action words.", position : "s", expose : true},
+                    { sel : $("#step3_continue"), content : "ONLY when you have dragged the complete sequence of action words click continue", position : "s", expose : true},
+                    ],
+                    {
+                      delay : -1,
+                      animation: 'fadeIn',
+                      showNavigation : true,
+                      backToTopWhenEnded : true
+                    });
+                    tripNew.start();
                 //   verifyModel(result, function() {
                  //
                 //     var id = arr_idx.toString();
@@ -84,9 +102,8 @@ function initialParse(){
                 //    ui.item.remove();
                 //  });
                   // Verify Model
-
                 }
-
+              }
             });
 
             $("#wordbank_list li").draggable({
@@ -221,11 +238,11 @@ function createTab(id, name, result){
       '<div class="form-horizontal">'+
       '  <div class="form-group">'+
       ''+
-      '<label for="rangeSlider" class="col-sm-1">Too less</label>'+
-      '<div class="col-sm-10">'+
+      '<label for="rangeSlider" class="col-sm-2">Too less</label>'+
+      '<div class="col-sm-8">'+
       '<input id="rangeSlider'+id+'" title="The intensity of the Pull action" name="pullSlider" type="range" min="1" max="10" step="1" value="5"/>'+
       '</div>'+
-      '<label class="col-sm-1">Too much</label>'+
+      '<label class="col-sm-2">Too much</label>'+
       '</div>'+
       '</div></div></fieldset>';
       break;

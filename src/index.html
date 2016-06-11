@@ -93,17 +93,18 @@
                         </div>
                         <div class="tab-pane fade" id="step3" title="Define the sequence of actions while interacting with {{objectName}}"  disabled>
                            <div class="well">
-                              <label>Selection preview of {{objectName}}</label>
+                              <p class="lead">Selection preview of {{objectName}}</p>
                               <div id="preview">
                                  <p class="alert alert-danger"> Object not selected</p>
                                  <canvas id="preview_img"></canvas>
                               </div>
-                              <label>Using the word bank, select the sequence of actions you would perform on the {{objectName}}</label>
+                              <p class="lead">Using the word bank, select the sequence of actions you would perform on the {{objectName}}</p>
+                              <small id="exampleText" class="text-muted">For eg. if the object is a button, the sequence would be Press, Release</small>
                               <div id="response" class="container-words">
                                  <ul id="response_list" class="items-words"></ul>
                               </div>
                               <br>
-                              <label id="parameter_label">Enter parameters for the actions before continuing</label>
+                              <label id="parameter_label">Enter parameters for the action</label>
                               <div>
                                  <ul class="nav nav-tabs" id="response_tabs_nav">
                                  </ul>

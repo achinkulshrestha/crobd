@@ -41,6 +41,7 @@ $('#finalSubmit').click(function(){
 $('.next').click(function(){
   var nextId = $(this).parents('.tab-pane').next().attr("id");
   var title = $(this).parents('.tab-pane').next().attr("title");
+
   $("#titleText").text(title);
   $('#attr-'+nextId).removeClass('disabled_link');
   $('[href=#'+nextId+']').tab('show');
@@ -96,62 +97,92 @@ $(document).ready(function () {
   //   //$('#expForm').submit();
   // })
   $('#step3_continue').click(function(event){
+
         event.preventDefault();
           // $('#summary').text(JSON.stringify($('form > fieldset').serializeObject()));
-          var fieldsets = $("fieldset").get();
-          var output = {};
-          var o;
           var result = $('#response .items-words').sortable('toArray', {attribute: 'name'});
-          output['action_sequence'] = result;
-          output['sequence_params'] = [];
-          var new_o = output['sequence_params'];
-          for(var x=0; x < fieldsets.length; x++){
-            if (x == 0) {
-              output[fieldsets[x].getAttribute("id")] = {};
-              o = output[fieldsets[x].getAttribute("id")];
-              o["type_id"] = fieldsets[x].getAttribute("name");
-              o["object_name"] = $("#objName").val();
-            }
-            else {
-              var o = {};
-              o["type_id"] = fieldsets[x].getAttribute("name").split("-")[1];
-              o["elements"] = [];
-              var fieldtags= ['input', 'select'];
-              for (var tagi=0; tagi< fieldtags.length; tagi++) {
-                var fields= fieldsets[x].getElementsByTagName(fieldtags[tagi]);
-                for (var fieldi=0; fieldi < fields.length; fieldi++) {
-                    var curr_element = {};
-                    var type = fields[fieldi].getAttribute("type");
-
-                    curr_element["name"] = fields[fieldi].getAttribute("name");
-                    var id = fields[fieldi].getAttribute("id");
-                    switch (type){
-                      case "radio":
-                        if (document.getElementById(id).checked) {
-                          curr_element["title"] = fields[fieldi].getAttribute("title");
-                          curr_element["value"] = fields[fieldi].value;
-                        }
-                        else{
-                          curr_element["value"] = curr_element["title"] = null;
-                        }
-                        break;
-                      case "range":
-                        curr_element["title"] = fields[fieldi].getAttribute("title");
-                        curr_element["value"] = fields[fieldi].value;
-                      case "text":
-                        curr_element["title"] = fields[fieldi].getAttribute("title");
-                        curr_element["value"] = fields[fieldi].value;
-                    }
-                    o["elements"].push(curr_element);
+          if (result.length < 2) {
+            bootbox.dialog({
+              message: "You have added just one action word in the interaction sequence, is that what you want?",
+              title: "Invalid action sequence!",
+              buttons: {
+                success: {
+                  label: "Yes!",
+                  className: "btn-success",
+                  callback: summaryCallback
+                },
+                danger: {
+                  label: "No, I think I made a mistake!",
+                  className: "btn-danger",
+                  callback: function() {
+                    $('[href=#step3]').tab('show');
+                    return;
+                  }
                 }
               }
-              new_o.push(o);
-            }
-
+            });
           }
-        presentSummary(output);
+          else {
+            summaryCallback();
+          }
     });
   });
+
+
+function summaryCallback() {
+  var fieldsets = $("fieldset").get();
+  var output = {};
+  var o;
+  var result = $('#response .items-words').sortable('toArray', {attribute: 'name'});
+  output['action_sequence'] = result;
+  output['sequence_params'] = [];
+  var new_o = output['sequence_params'];
+  for(var x=0; x < fieldsets.length; x++){
+    if (x == 0) {
+      output[fieldsets[x].getAttribute("id")] = {};
+      o = output[fieldsets[x].getAttribute("id")];
+      o["type_id"] = fieldsets[x].getAttribute("name");
+      o["object_name"] = $("#objName").val();
+    }
+    else {
+      var o = {};
+      o["type_id"] = fieldsets[x].getAttribute("name").split("-")[1];
+      o["elements"] = [];
+      var fieldtags= ['input', 'select'];
+      for (var tagi=0; tagi< fieldtags.length; tagi++) {
+        var fields= fieldsets[x].getElementsByTagName(fieldtags[tagi]);
+        for (var fieldi=0; fieldi < fields.length; fieldi++) {
+            var curr_element = {};
+            var type = fields[fieldi].getAttribute("type");
+
+            curr_element["name"] = fields[fieldi].getAttribute("name");
+            var id = fields[fieldi].getAttribute("id");
+            switch (type){
+              case "radio":
+                if (document.getElementById(id).checked) {
+                  curr_element["title"] = fields[fieldi].getAttribute("title");
+                  curr_element["value"] = fields[fieldi].value;
+                }
+                else{
+                  curr_element["value"] = curr_element["title"] = null;
+                }
+                break;
+              case "range":
+                curr_element["title"] = fields[fieldi].getAttribute("title");
+                curr_element["value"] = fields[fieldi].value;
+              case "text":
+                curr_element["title"] = fields[fieldi].getAttribute("title");
+                curr_element["value"] = fields[fieldi].value;
+            }
+            o["elements"].push(curr_element);
+        }
+      }
+      new_o.push(o);
+    }
+
+  }
+presentSummary(output);
+}
 
 function presentSummary(output){
 $("#summary").empty();

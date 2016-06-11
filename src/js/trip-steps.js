@@ -71,7 +71,7 @@ showNavigation : true
 var tripStep3 = new Trip([
 { content : "Now, you have to define the sequence of actions to take in order to interact with the object you selected in the image", position : "screen-center", expose : true},
 { sel : $("#wordbank_list"), content : "This is the word bank, choose appropriate actions from here. Click, hold and drag the thumbnails to the response box", position : "w", expose : true},
-{ sel : $("#definitions"), content : "Description for different actions for your reference", position : "w", expose : true},
+{ sel : $("#definitions"), content : "Description of different actions for your reference", position : "w", expose : true},
 { sel : $("#response_list"), content : "This is the response box, drag the action words here.", position : "n", expose : true}
 ], {
 delay : -1,
@@ -96,8 +96,12 @@ tripStep2.start();
 });
 
 $("#step2_continue").on("click", function(event){
+  var data = sessionStorage.getItem('step3tripStart');
+  if (data == null) {
+    // Save data to sessionStorage
+    sessionStorage.setItem('step3tripStart', '1');
     tripStep3.start();
+  }
 });
-
 
 });
