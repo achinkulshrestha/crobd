@@ -332,6 +332,7 @@ function createTab(id, name, result){
       '      <p class="lead">Param 2. Angle of rotation</p>'+
       '      <input type="text" title="Angle of rotation" name="rotationAngle" class="form-control" id="rotationangle" placeholder="Enter angle in degrees">'+
       '      <small class="text-muted">Take positive x axis as reference</small>'+
+      '       <img class="img-responsive" src="img/rotate.png"/>'
       '    </div></fieldset>';
       break;
 

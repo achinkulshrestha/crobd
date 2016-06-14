@@ -223,9 +223,10 @@ function presentSummary(output){
      sequence_disp.appendTo(result_div);
   });
   $("#summary").append(result_div);
-  var param_div = $("<div></div>");
+
   $.each(sequence_params, function(idx, value){
-    param_div.append('<h4>Action '+idx+': '+sequence_mapping[value["type_id"]]+'</h4>');
+    var param_div = $("<div></div>");
+    param_div.append('<p class="lead">Action '+idx+': '+sequence_mapping[value["type_id"]]+'</p>');
     $.each(value["elements"], function(idx, value){
         if (value["name"] == "Grasp_clone_canvas" || value["name"] == "Press_clone_canvas") {
           var img = $('<img>');
