@@ -206,30 +206,39 @@ function createTab(id, name, result){
               '    <div class="row">'+
               '        <div class="col-lg-4">'+
               '             <a href="#" class = "falseLink">'+
-              '             <img class="lefthand" src="img/01-hand.jpg" alt="..." />'+
-              '            <img class="righthand" src="img/04-hand.jpg" alt="..." />'+
+              '             <img class="lefthand" title="01-hand" src="img/01-hand.jpg" alt="..." />'+
+              '            <img class="righthand" title="04-hand" src="img/04-hand.jpg" alt="..." />'+
               '            </a>'+
               '        </div>'+
               '          <div class="col-lg-4">'+
               '             <a href="#" class = "falseLink">'+
-              '            <img class="lefthand" src="img/02-hand.jpg" alt="..." />'+
-                  '         <img class="righthand" src="img/05-hand.jpg" alt="..." />'+
+              '            <img class="lefthand" title="02-hand" src="img/02-hand.jpg" alt="..." />'+
+                  '         <img class="righthand" title="05-hand" src="img/05-hand.jpg" alt="..." />'+
               '            </a>'+
               '        </div>'+
               '         <div class="col-lg-4">'+
               '             <a href="#" class = "falseLink">'+
-              '            <img class="lefthand" src="img/03-hand.jpg" alt="..." />'+
-              '            <img class="righthand" src="img/06-hand.jpg" alt="..." />'+
+              '            <img class="lefthand" title="03-hand" src="img/03-hand.jpg" alt="..." />'+
+              '            <img class="righthand" title="06-hand" src="img/06-hand.jpg" alt="..." />'+
               '            </a>'+
               '        </div>'+
               '    </div>'+
               '</div>'+
               '</div>'+
               '<p class="lead">Param 3. Select the center of the grab action in the preview image.</p>'+
-              '<button class="btn btn-default" data-toggle="collapse" data-target="#instruction">Detailed instructions</button>'+
-              '<div id="instruction" class="collapse">'+
-              'Click on the grasp point inside the preview image above, a red dot should appear. To re-select, move the selection on the image on the left.</div></br>'+
-              '<p id="pointSelected" class="bg-warning">Point not selected yet!</p></fieldset>';
+              '<div id="instruction">'+
+              '<small>Click on the grasp point inside the preview image below, a red dot should appear.</small></div></br>'+
+              '<div id="Grasp_preview" class="sidebyside">'+
+              '<canvas id="Grasp_clone_img_'+id+'" title="Point of contact" name="Grasp_clone_canvas"></canvas>'+
+              '</div>'+
+              '<div id="reselect_'+id+'" class="sidebyside reselect">'+
+              '<button type="button" class="btn-reselect btn btn-sm btn-primary">'+
+              '<span class="glyphicon glyphicon-screenshot"></span>Re-Select grasp point'+
+              '</button>'+
+              '</div>'+
+              '<p id="pointSelected" class="bg-warning">Point not selected yet!</p>'+
+              '<input type="hidden" id="xGraspSelection" title="x-coordinates" name="xGraspSelection"/>'+
+              '<input type="hidden" id="yGraspSelection" title="y-coordinates" name="yGraspSelection"/></fieldset>';
 
       break;
     case "Pull":
@@ -291,10 +300,20 @@ function createTab(id, name, result){
             '<p class="lead">Param 3. Select the center of the press action in the preview image.</p>'+
             '<button class="btn btn-default" data-toggle="collapse" data-target="#instructionpress">Detailed instructions</button>'+
             '<div id="instructionpress" class="collapse">'+
-            'Click on the grasp point inside the preview image above, a red dot should appear. To re-select, move the selection on the image on the left.</div></br>'+
+            'Click on the grasp point inside the preview image above, a red dot should appear. </div></br>'+
+            '<div id="Press_preview" class="sidebyside">'+
+            '<p class="alert alert-danger"> Object not selected</p>'+
+            '<canvas id="Press_clone_img_'+id+'" name="name="Press_clone_canvas""></canvas>'+
+            '</div>'+
+            '<div id="reselect_'+id+'" class="sidebyside reselect">'+
+            '<button type="button" class="btn-reselect btn btn-sm btn-primary">'+
+            '<span class="glyphicon glyphicon-screenshot"></span>Re-Select grasp point'+
+            '</button>'+
+            '</div>'+
             '<p id="pointSelected" class="bg-warning">Point not selected yet!</p>'+
-            '<input type="hidden" name="xGraspSelection"/>'+
-            '<input type="hidden" name="yGraspSelection"/></fieldset>';
+            '<input type="hidden" id="xPressSelection" title="x-coordinates" name="xPressSelection"/>'+
+            '<input type="hidden" id="yPresSelection" title="y-coordinates" name="yPressSelection"/></fieldset>';
+
       break;
     case "Rotate":
       myvar = '<fieldset id="fieldid-'+id+'" name="fieldName-'+result[result.length-1]+'"><p class="lead">Param 1. Direction of rotation.</p>'+
@@ -335,9 +354,9 @@ function createTab(id, name, result){
 
     document.getElementById("tab-"+id).innerHTML = myvar;
     $('a[href="#tab-'+id+'"]').tab('show');
-    addhandlers();
+    addhandlers(name, id);
 }
-function addhandlers(){
+function addhandlers(name, id){
   $('.falseLink').click(function(ev){
     // do whatever you want here
     ev.preventDefault();
@@ -361,7 +380,59 @@ function addhandlers(){
     $('.righthand').removeClass('selected');
     $(this).addClass("selected");
   });
+  if (name == "Grasp" || name == "Press") {
+    activateCanvasClick(name, id);
+  }
 }
+
+function activateCanvasClick(name, id) {
+  $("#"+name+"_preview > p").hide();
+  $("#"+name+"_preview > canvas").show();
+  var canvas_dst = document.getElementById(name+'_clone_img_'+id);
+  var canvas_src = document.getElementById("preview_img");
+  canvas_dst.width  = canvas_src.width;
+  canvas_dst.height = canvas_src.height;
+  var destCtx = canvas_dst.getContext('2d');
+  destCtx.drawImage(canvas_src, 0, 0);
+  canvas_dst.name = name;
+  canvas_dst.tab_id = id;
+  canvas_dst.addEventListener("mousedown", getPosition, false);
+}
+
+function getPosition(event)
+{
+  var x = event.x;
+  var y = event.y;
+  var rect = event.target.getBoundingClientRect();
+  x = x - rect.left;
+  y = y - rect.top;
+  // x -= canvas.offsetLeft;
+  // y -= canvas.offsetTop;
+  var context = event.target.getContext("2d");
+  context.beginPath();
+  context.arc(x, y, 5, 0, 2*Math.PI);
+  context.fillStyle = "#FF0000";
+  context.fill();
+  context.closePath();
+  event.target.removeEventListener('mousedown', getPosition, false);
+  var name = event.target.name;
+  var id = event.target.tab_id;
+  $("#pointSelected").text("Point selected");
+  $("#pointSelected").removeClass("bg-warning");
+  $("#pointSelected").addClass("bg-success");
+  $(".reselect").show();
+  $("#x"+name+"Selection").attr('value',x);
+  $("#y"+name+"Selection").attr('value',y);
+  $(".btn-reselect").click(function(){
+    $("#pointSelected").text("Point not selected");
+    $("#pointSelected").removeClass("bg-success");
+    $("#pointSelected").addClass("bg-warning");
+    activateCanvasClick(name, id);
+  });
+}
+
+
+
 function change(result) {
     var $scope = angular.element($('#controlN')).scope();
     $scope.$apply(function() {

@@ -416,6 +416,14 @@ dt {
 	margin-bottom: 5px;
 }
 
+.reselect {
+	display: none;
+}
+
+.sidebyside {
+	margin: 0px 0px 10px 5px;
+}
+
 /* --------------------------------------
    Media Queries
    -------------------------------------- */

@@ -148,14 +148,22 @@ function summaryCallback() {
       var o = {};
       o["type_id"] = fieldsets[x].getAttribute("name").split("-")[1];
       o["elements"] = [];
-      var fieldtags= ['input', 'select'];
+      var hand_posture = {};
+      hand_posture["name"] = "hand_posture";
+      if ($(".selected")[0]) {
+        hand_posture["title"] = "Hand posture";
+        hand_posture["value"] = $(".selected")[0].src;
+      }
+      o["elements"].push(hand_posture);
+      var fieldtags= ['input', 'select', 'canvas'];
       for (var tagi=0; tagi< fieldtags.length; tagi++) {
         var fields= fieldsets[x].getElementsByTagName(fieldtags[tagi]);
         for (var fieldi=0; fieldi < fields.length; fieldi++) {
             var curr_element = {};
             var type = fields[fieldi].getAttribute("type");
 
-            curr_element["name"] = fields[fieldi].getAttribute("name");
+            var name = fields[fieldi].getAttribute("name");
+            curr_element["name"] = name;
             var id = fields[fieldi].getAttribute("id");
             switch (type){
               case "radio":
@@ -164,15 +172,23 @@ function summaryCallback() {
                   curr_element["value"] = fields[fieldi].value;
                 }
                 else{
-                  curr_element["value"] = curr_element["title"] = null;
+                  continue;
                 }
                 break;
               case "range":
                 curr_element["title"] = fields[fieldi].getAttribute("title");
                 curr_element["value"] = fields[fieldi].value;
+                break;
               case "text":
                 curr_element["title"] = fields[fieldi].getAttribute("title");
                 curr_element["value"] = fields[fieldi].value;
+                break;
+              case "hidden":
+                curr_element["value"] = fields[fieldi].value;
+            }
+            if (name == "Grasp_clone_canvas" || name == "Press_clone_canvas"){
+              curr_element['title'] = fields[fieldi].getAttribute("title");
+              curr_element['dataURL'] =  document.getElementById(id).toDataURL("image/jpeg");
             }
             o["elements"].push(curr_element);
         }
@@ -214,9 +230,23 @@ $.each(sequence_params, function(idx, value){
   param_div.append('<b>Action '+idx+': '+sequence_mapping[value["type_id"]]+'</b>');
 
   $.each(value["elements"], function(idx, value){
-      if (value["title"] && value["value"]) {
+      if (value["name"] == "Grasp_clone_canvas" || value["name"] == "Press_clone_canvas") {
+        var img = $('<img>');
+        img.attr('src', value["dataURL"]);
+        param_div.append('<p>'+value["title"]+': ');
+        param_div.append(img);
+      }
+      else if (value["name"] == "hand_posture") {
+        var img = $('<img>');
+        img.attr('src', value["value"]);
+        img.css('max-width', '50%');
+        param_div.append('<p>'+value["title"]+': ');
+        param_div.append(img);
+      }
+      else if (value["title"] && value["value"]) {
           param_div.append('<p>'+value["title"]+': '+value["value"]+'</p>');
       }
+
   });
 // param_div.before( "</br>" );
 $("#summary").append(param_div);
@@ -239,34 +269,8 @@ function preview(img, selection) {
     base_image.src = $('#outputImage').attr('src');
 
     ctx.drawImage(base_image, selection.x1, selection.y1, selection.width, selection.height, 0, 0, selection.width, selection.height);
-    canvas.addEventListener("mousedown", getPosition, false);
+
   }
-
-function getPosition(event)
-{
-  var x = event.x;
-  var y = event.y;
-
-  var canvas = document.getElementById("preview_img");
-  var rect = canvas.getBoundingClientRect();
-   x = x - rect.left;
-   y = y - rect.top;
-  // x -= canvas.offsetLeft;
-  // y -= canvas.offsetTop;
-  var context = canvas.getContext("2d");
-  context.beginPath();
-  context.arc(x, y, 5, 0, 2*Math.PI);
-  context.fillStyle = "#FF0000";
-  context.fill();
-  context.closePath();
-  canvas.removeEventListener('mousedown', getPosition, false);
-  $("#pointSelected").text("Point selected");
-  $("#pointSelected").removeClass("bg-warning");
-  $("#pointSelected").addClass("bg-success");
-  $("#xSelection").text(x);
-  $("#ySelection").text(y);
-
-}
 
 $(document).ready(function() {
   $("#response_tabs_nav").on("click", "a", function(e){
