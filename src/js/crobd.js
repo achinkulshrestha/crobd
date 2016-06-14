@@ -148,20 +148,20 @@ function summaryCallback() {
       var o = {};
       o["type_id"] = fieldsets[x].getAttribute("name").split("-")[1];
       o["elements"] = [];
-      var hand_posture = {};
-      hand_posture["name"] = "hand_posture";
-      if ($(".selected")[0]) {
-        hand_posture["title"] = "Hand posture";
-        hand_posture["value"] = $(".selected")[0].src;
+      var fieldsetid = fieldsets[x].getAttribute("id");
+      if ($("#"+fieldsetid).find(".selected").length > 0) {
+          hand_posture = {};
+          hand_posture["name"] = "hand_posture";
+          hand_posture["title"] = "Hand posture";
+          hand_posture["value"] = $("#"+fieldsetid).find(".selected").attr('src')
+          o["elements"].push(hand_posture);
       }
-      o["elements"].push(hand_posture);
       var fieldtags= ['input', 'select', 'canvas'];
       for (var tagi=0; tagi< fieldtags.length; tagi++) {
         var fields= fieldsets[x].getElementsByTagName(fieldtags[tagi]);
         for (var fieldi=0; fieldi < fields.length; fieldi++) {
             var curr_element = {};
             var type = fields[fieldi].getAttribute("type");
-
             var name = fields[fieldi].getAttribute("name");
             curr_element["name"] = name;
             var id = fields[fieldi].getAttribute("id");
@@ -190,6 +190,7 @@ function summaryCallback() {
               curr_element['title'] = fields[fieldi].getAttribute("title");
               curr_element['dataURL'] =  document.getElementById(id).toDataURL("image/jpeg");
             }
+
             o["elements"].push(curr_element);
         }
       }
@@ -201,59 +202,48 @@ presentSummary(output);
 }
 
 function presentSummary(output){
-$("#summary").empty();
-var sequence_mapping = {"3":"Push", "1":"Pull", "4":"Release", "2":"Rotate", "5":"Press","0":"Grasp"};
-var object_name = output["objFieldset"]["object_name"];
-var action_sequence = output["action_sequence"];
-var sequence_params = output["sequence_params"];
-var result = '<p><b>Name of the object: '+object_name+'<b></p>';
-var result_div = $("<div></div>");
-result_div.append(result);
-result_div.append('<b>Selected action sequence: </b>');
-// Create sequence of actions
-$.each(action_sequence, function(idx, value){
-  // Let's create the DOM
-   var sequence_disp = $('<kbd>');
-   if (idx < action_sequence.length-1) {
-     sequence_disp.text(sequence_mapping[value]+"->");
-   } else {
-     sequence_disp.text(sequence_mapping[value]);
-   }
-   sequence_disp.appendTo(result_div);
-});
-
-$("#summary").append(result_div);
-
-var param_div = $("<div></div>");
-
-$.each(sequence_params, function(idx, value){
-  param_div.append('<b>Action '+idx+': '+sequence_mapping[value["type_id"]]+'</b>');
-
-  $.each(value["elements"], function(idx, value){
-      if (value["name"] == "Grasp_clone_canvas" || value["name"] == "Press_clone_canvas") {
-        var img = $('<img>');
-        img.attr('src', value["dataURL"]);
-        param_div.append('<p>'+value["title"]+': ');
-        param_div.append(img);
-      }
-      else if (value["name"] == "hand_posture") {
-        var img = $('<img>');
-        img.attr('src', value["value"]);
-        img.css('max-width', '50%');
-        param_div.append('<p>'+value["title"]+': ');
-        param_div.append(img);
-      }
-      else if (value["title"] && value["value"]) {
-          param_div.append('<p>'+value["title"]+': '+value["value"]+'</p>');
-      }
-
+  $("#summary").empty();
+  var sequence_mapping = {"3":"Push", "1":"Pull", "4":"Release", "2":"Rotate", "5":"Press","0":"Grasp"};
+  var object_name = output["objFieldset"]["object_name"];
+  var action_sequence = output["action_sequence"];
+  var sequence_params = output["sequence_params"];
+  var result = '<p><b>Name of the object: '+object_name+'<b></p>';
+  var result_div = $("<div></div>");
+  result_div.append(result);
+  result_div.append('<b>Selected action sequence: </b>');
+  // Create sequence of actions
+  $.each(action_sequence, function(idx, value){
+    // Let's create the DOM
+     var sequence_disp = $('<kbd>');
+     if (idx < action_sequence.length-1) {
+       sequence_disp.text(sequence_mapping[value]+"->");
+     } else {
+       sequence_disp.text(sequence_mapping[value]);
+     }
+     sequence_disp.appendTo(result_div);
   });
-// param_div.before( "</br>" );
-$("#summary").append(param_div);
-
-});
-
-
+  $("#summary").append(result_div);
+  var param_div = $("<div></div>");
+  $.each(sequence_params, function(idx, value){
+    param_div.append('<h4>Action '+idx+': '+sequence_mapping[value["type_id"]]+'</h4>');
+    $.each(value["elements"], function(idx, value){
+        if (value["name"] == "Grasp_clone_canvas" || value["name"] == "Press_clone_canvas") {
+          var img = $('<img>');
+          img.attr('src', value["dataURL"]);
+          param_div.append('<p>'+value["title"]+': ');
+          param_div.append(img);
+        } else if (value["name"] == "hand_posture") {
+          var img = $('<img>');
+          img.attr('src', value["value"]);
+          img.css('max-width', '20%');
+          param_div.append('<p>'+value["title"]+': ');
+          param_div.append(img);
+        } else if (value["title"] && value["value"]) {
+            param_div.append('<p>'+value["title"]+': '+value["value"]+'</p>');
+        }
+      });
+  $("#summary").append(param_div);
+  });
 }
 
 function preview(img, selection) {
@@ -267,7 +257,6 @@ function preview(img, selection) {
     var ctx = canvas.getContext("2d");
     var base_image = new Image();
     base_image.src = $('#outputImage').attr('src');
-
     ctx.drawImage(base_image, selection.x1, selection.y1, selection.width, selection.height, 0, 0, selection.width, selection.height);
 
   }
@@ -301,9 +290,4 @@ $(document).ready(function() {
     ctx.drawImage(img, 0, 0, mainCanvas.width, mainCanvas.height);
     $('#outputImage').attr('src', mainCanvas.toDataURL("image/jpeg"));
   };
-});
-
-
-$(document).ready(function(){
-
 });
